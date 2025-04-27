@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jambo Tax | Our Services</title>
+  <meta name="description" content="Explore Jambo Tax's professional tax filing services for individuals and businesses in Kenya.">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=TEST_CLIENT_ID&currency=KES"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html"><img src="assets/images/logo.png" alt="Jambo Tax Logo" class="logo"/></a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section class="services container" id="services">
+    <h2>Our Services & Pricing</h2>
+    <div class="service-item">
+      <h3>Individual Tax Filing (PAYE)</h3>
+      <p>Accurate and timely filing for employed individuals. Fee: KES 1,000</p>
+      <select class="payment-method" data-service="Individual Tax Filing" data-amount="1000">
+        <option value="mpesa">Mpesa</option>
+        <option value="paypal">PayPal</option>
+        <option value="card">Bank Transfer/Card/Gpay</option>
+      </select>
+      <button class="btn pay-btn">Pay KES 1,000</button>
+    </div>
+    <div class="service-item">
+      <h3>Business Tax Filing</h3>
+      <p>Tax management for sole proprietors and small businesses. Fee: KES 2,500</p>
+      <select class="payment-method" data-service="Business Tax Filing" data-amount="2500">
+        <option value="mpesa">Mpesa</option>
+        <option value="paypal">PayPal</option>
+        <option value="card">Bank Transfer/Card/Gpay</option>
+      </select>
+      <button class="btn pay-btn">Pay KES 2,500</button>
+    </div>
+    <div class="service-item">
+      <h3>VAT Returns & Compliance</h3>
+      <p>VAT filing and compliance services. Fee: KES 1,500</p>
+      <select class="payment-method" data-service="VAT Returns & Compliance" data-amount="1500">
+        <option value="mpesa">Mpesa</option>
+        <option value="paypal">PayPal</option>
+        <option value="card">Bank Transfer/Card/Gpay</option>
+      </select>
+      <button class="btn pay-btn">Pay KES 1,500</button>
+    </div>
+    <div class="service-item">
+      <h3>HELB/KRA Compliance Certificates</h3>
+      <p>Fast processing of compliance certificates. Fee: KES 800</p>
+      <select class="payment-method" data-service="HELB/KRA Compliance" data-amount="800">
+        <option value="mpesa">Mpesa</option>
+        <option value="paypal">PayPal</option>
+        <option value="card">Bank Transfer/Card/Gpay</option>
+      </select>
+      <button class="btn pay-btn">Pay KES 800</button>
+    </div>
+    <div class="service-item">
+      <h3>Tax Consultancy & Training</h3>
+      <p>One-on-one guidance and group workshops. Fee: KES 3,000</p>
+      <select class="payment-method" data-service="Tax Consultancy & Training" data-amount="3000">
+        <option value="mpesa">Mpesa</option>
+        <option value="paypal">PayPal</option>
+        <option value="card">Bank Transfer/Card/Gpay</option>
+      </select>
+      <button class="btn pay-btn">Pay KES 3,000</button>
+    </div>
+  </section>
+  <div id="payment-modal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <h2>Enter Payment Details</h2>
+      <div class="form-group">
+        <label for="payment-name">Full Name</label>
+        <input type="text" id="payment-name" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="payment-email">Email</label>
+        <input type="email" id="payment-email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="payment-phone">Phone Number</label>
+        <input type="tel" id="payment-phone" placeholder="e.g., +2547XXXXXXXX or 07XXXXXXXX" required>
+      </div>
+      <button id="submit-payment" class="btn">Proceed to Payment</button>
+      <div id="paypal-button-container"></div>
+    </div>
+  </div>
+  <button id="backToTop" title="Back to top">↑</button>
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Jambo Tax. All rights reserved.</p>
+      <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+    </div>
+  </footer>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
