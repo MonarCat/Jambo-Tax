@@ -20,10 +20,10 @@ jambotax/
 │       └── hero.jpg
 ├── index.html
 ├── about.html
-├── contact.html
-├── services.html
-├── privacy.html
-├── terms.html
+├── index.html
+├── Privacy Policy.html
+├── script.js
+├── style.css
 ├── README.md
 └── .gitignore
 
@@ -66,8 +66,8 @@ Phone Number Validation: Expand validation to support other formats or integrate
 Development
 
 Dependencies: No build tools required; uses vanilla HTML/CSS/JS.
-Styles: assets/css/style.css uses the Inter font and a clean, modern design.
-Scripts: assets/js/script.js handles smooth scrolling, back-to-top, payment modal, and payment processing.
+Styles: style.css uses the Inter font and a clean, modern design.
+Scripts: script.js handles smooth scrolling, back-to-top, payment modal, and payment processing.
 
 Contributing
 
@@ -82,6 +82,6 @@ License
 Contact
 
 Email: support@jambotax.co.ke
-Phone: +254 700 123 456
+Phone: +254 702 359 618
 Address: 123 Tax House, Nairobi, Kenya
 
