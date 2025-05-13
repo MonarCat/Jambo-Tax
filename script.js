@@ -446,24 +446,24 @@ function submitDetails(cardIndex) {
     formData.append('contact', contact);
 
     // Send the details via email
-    fetch('https://formspree.io/f/your-form-id', { // Replace with your email service endpoint
-        method: 'POST',
-        body: formData,
-    })
-        .then(response => {
-            if (response.ok) {
-                alert('Details submitted successfully!');
-                // Optionally hide the container again
-                const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
-                requiredUploads.classList.add('hidden');
-            } else {
-                alert('Failed to submit details. Please try again.');
-            }
-        })
-        .catch(error => {
-            console.error('Error submitting details:', error);
-            alert('An error occurred. Please try again.');
-        });
+fetch('https://formspree.io/f/mdkgpdnks', {
+    method: 'POST',
+    body: formData,
+})
+.then(response => {
+    if (response.ok) {
+        alert('Details submitted successfully!');
+        // Optionally hide the container again
+        const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
+        requiredUploads.classList.add('hidden');
+    } else {
+        alert('Failed to submit details. Please try again.');
+    }
+})
+.catch(error => {
+    console.error('Error submitting details:', error);
+    alert('An error occurred. Please try again.');
+});
 }
 
 function completePayment(cardIndex) {
@@ -632,4 +632,3 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(script);
     }
 });
-

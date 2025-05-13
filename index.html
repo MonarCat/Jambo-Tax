@@ -92,14 +92,14 @@
                 <h3>Individual Tax Filing</h3>
                 <p>File your Nil and Income returns quickly and accurately.</p>
                 <p class="uploads"><strong>Required Uploads:</strong> KRA PIN, ID Copy, Employment Payslip/P9 or Bank Statements</p>
-                <p class="price">Starting from KSh 69</p> <button class="btn btn-secondary" onclick="expandService('individual', this)">Select</button>
+                <p class="price">Starting from<br> KSh 69</p> <button class="btn btn-secondary" onclick="expandService('individual', this)">Select</button>
             </div>
             <div class="service-card card-index-1">
                 <i class="fas fa-briefcase card-icon"></i>
                 <h3>Business Tax Filing</h3>
                 <p>Groups, SMEs, Corporation, VAT & PAYE handled end-to-end.</p>
                 <p class="uploads"><strong>Required Uploads:</strong> Group Certificates, Business Registration Documents, Company PIN, CR12, Bank Statements, Receipts e.t.c.</p>
-                <p class="price">Starting from KSh 499</p>
+                <p class="price">Starting from<br> KSh 499</p>
                 <button class="btn btn-secondary" onclick="expandService('business', this)">Select</button>
             </div>
             <div class="service-card card-index-2">
@@ -226,21 +226,21 @@
             <select id="payment-method" onchange="showPaymentForm()">
                 <option value="">Select a payment method</option>
                 <option value="Mpesa">Mobile Money</option>
-                <option value="PayPal">PayPal-Not Available at the moment.</option>
-                <option value="Bank">Bank Transfer-Not Available at the moment.</option>
-                <option value="Card">Credit/Debit Card-Not Available at the moment.</option>
+                <option value="PayPal">PayPal - Not Available at the moment.</option>
+                <option value="Bank">Bank Transfer - Not Available at the moment.</option>
+                <option value="Card">Credit/Debit Card - Not Available at the moment.</option>
             </select>
         </div>
 
         <div id="mpesa-form" class="payment-form hidden">
-            <h3>Mobile Money Payment</h3>
-            <p>To pay via M-Pesa/Airtel Money, follow these steps:</p>
+            <h3>Lipa na M-pesa</h3>
+            <p>To pay via M-Pesa, follow these steps:</p>
             
             <div class="manual-payment-guideline">
                 <h3>Manual Payment Instructions</h3>
                 <ol>
-                    <li>Open your M-Pesa/Airtel Money menu on your phone.</li>
-                    <li>Select <strong>Lipa na M-Pesa/Payment/make payments</strong>.</li>
+                    <li>Open your M-Pesa menu on your phone.</li>
+                    <li>Select <strong>Lipa na M-pesa</strong>.</li>
                     <li>Choose <strong>Paybill</strong>.</li>
                     <li>Enter the Paybill Number: <strong>400200</strong>.</li>
                     <li>For the Account Number, enter your <strong>01192985765400</strong>.</li>
@@ -278,10 +278,17 @@
     <!-- Compact Uploads Container -->
     <div id="uploads-container" class="uploads-container hidden">
         <h3>Upload Required Documents</h3>
-        <form id="uploads-form">
+        <form
+            action="https://formspree.io/f/mdkgpdnk"
+            method="POST"
+            enctype="multipart/form-data"
             <div class="form-group">
-                <label for="Service Type">Service Type</label>
-                <select id="service-type" multiple required onchange="handleServiceSelection()" aria-label="Select service types">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full_name" placeholder="Enter your full name" required aria-label="Full name input">
+            </div>
+            <div class="form-group">
+                <label for="service-type">Service Type</label>
+                <select id="service-type" name="service_type" multiple required aria-label="Select service types">
                     <option value="individual-tax-filing">Individual Tax Filing</option>
                     <option value="business-tax-filing">Business Tax Filing</option>
                     <option value="tax-consultancy">Tax Consultancy</option>
@@ -291,36 +298,23 @@
             </div>
             <div class="form-group">
                 <label for="service-description">Service Description</label>
-                <input type="text" id="service-description" accept="text/plain=11 digits" placeholder="Tell us what you want done:" required oninput="validateKRAPin(this)">
-                <script>
-                    function validateKRAPin(input) {
-                        const pattern = /^[A-Z][0-9]{9}[A-Z]$/;
-                        const errorElement = document.getElementById('kra-pin-error');
-                        if (!pattern.test(input.value)) {
-                            errorElement.textContent = 'Please enter a valid KRA PIN Number';
-                        } else {
-                            errorElement.textContent = '';
-                        }
-                    }
-                </script>
+                <input type="text" id="service-description" name="service_description" placeholder="Tell us what you want done:" required>
             </div>
             <div class="form-group">
                 <label for="kra-pin">KRA PIN No.</label>
-                <input type="text" id="kra-pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required 
-                    oninput="validateKRAPin(this)">
-                <div id="kra-pin-error" class="error-message" aria-live="polite"></div>
+                <input type="text" id="kra-pin" name="kra_pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required>
             </div>
             <div class="form-group">
                 <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
-                <input type="file" id="id-upload" accept=".pdf,.jpg,.png" required>
+                <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png" required>
             </div>
             <div class="form-group">
                 <label for="other-documents">Other Document(s):</label>
-                <input type="file" id="other-documents" accept=".pdf,.jpg,.png" required>
+                <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png">
             </div>
             <div class="form-group">
                 <label for="contact">Email/WhatsApp No.:</label>
-                <input type="text" id="contact" placeholder="Enter your email or WhatsApp number" required>
+                <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
             </div>
             <button type="submit" class="btn btn-secondary">Submit Documents</button>
         </form>
@@ -512,7 +506,39 @@
         </div>
     </footer>
     <script src="script.js"></script>
-    
+    <!-- Place this script at the end of the body tag -->
+<script>
+  var form = document.getElementById("my-form");
+  
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("my-form-status");
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        status.innerHTML = "Thanks for your submission!";
+        form.reset()
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+          } else {
+            status.innerHTML = "Oops! There was a problem submitting your form"
+          }
+        })
+      }
+    }).catch(error => {
+      status.innerHTML = "Oops! There was a problem submitting your form"
+    });
+  }
+  form.addEventListener("submit", handleSubmit)
+</script>
     
 
 </body>
