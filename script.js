@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 // Global variables (Keep as is)
 let selectedService = '';
 let selectedServiceName = '';
@@ -411,12 +413,10 @@ function submitDetails(cardIndex) {
         return;
     }
 
-    // Simulate sending the details via email
-    const email = 'customerservice@jambotax.co.ke';
-    const subject = `Service Request for Card Index ${cardIndex}`;
-    const body = `KRA PIN: ${kraPin}\nContact: ${contact}\nPlease find the attached ID document.`;
-
-    alert(`Details submitted successfully to ${email}.\nSubject: ${subject}\nBody: ${body}`);
+    // Simulate form submission
+    alert('Details submitted successfully!');
+    const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
+    requiredUploads.classList.add('hidden');
 }
 
 function checkPaymentStatus() {
@@ -446,7 +446,7 @@ function submitDetails(cardIndex) {
     formData.append('contact', contact);
 
     // Send the details via email
-fetch('https://formspree.io/f/mdkgpdnks', {
+fetch('https://formspree.io/f/mdkgpdnk', { // Corrected endpoint
     method: 'POST',
     body: formData,
 })
@@ -571,6 +571,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backToHomeBtn) {
         backToHomeBtn.addEventListener('click', redirectToHome);
     }
+
+    // Form submission handler for uploads-container
+    const uploadForm = document.querySelector('#uploads-container form');
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Documents submitted successfully!');
+                    document.getElementById('uploads-container').classList.add('hidden');
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was a problem submitting your documents. Please try again.');
+            });
+        });
+    }
 });
 
 function redirectToHome() {
@@ -632,3 +661,80 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(script);
     }
 });
+
+document.getElementById('uploads-container').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const form = e.target;
+
+  // Get form data
+  const serviceType = form.service_type.value;
+  const serviceDescription = form.service_description.value;
+  const kraPin = form.kra_pin.value;
+  const contact = form.contact.value;
+  const idUpload = form.id_upload.files[0];
+  const otherDocuments = form.other_documents.files[0];
+
+  try {
+    // Upload ID document to Supabase Storage
+    const idFilePath = `${Date.now()}_${idUpload.name}`;
+    const { data: idUploadData, error: idUploadError } = await supabase.storage
+      .from('uploads')
+      .upload(idFilePath, idUpload);
+
+    if (idUploadError) {
+      console.error('ID upload error:', idUploadError);
+      alert('Failed to upload ID document. Please try again.');
+      return;
+    }
+
+    // Upload other documents (if provided) to Supabase Storage
+    let otherFilePath = null;
+    if (otherDocuments) {
+      otherFilePath = `${Date.now()}_${otherDocuments.name}`;
+      const { data: otherUploadData, error: otherUploadError } = await supabase.storage
+        .from('uploads')
+        .upload(otherFilePath, otherDocuments);
+
+      if (otherUploadError) {
+        console.error('Other document upload error:', otherUploadError);
+        alert('Failed to upload additional documents. Please try again.');
+        return;
+      }
+    }
+
+    // Insert form data into Supabase database
+    const { data, error } = await supabase
+      .from('submissions')
+      .insert([
+        {
+          service_type: serviceType,
+          service_description: serviceDescription,
+          kra_pin: kraPin,
+          contact: contact,
+          id_upload_path: idUploadData.path,
+          other_documents_path: otherFilePath,
+        },
+      ]);
+
+    if (error) {
+      console.error('Database insert error:', error);
+      alert('Failed to save your submission. Please try again.');
+    } else {
+      alert('Submission successful!');
+      form.reset();
+      document.getElementById('uploads-container').classList.add('hidden');
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    alert('An unexpected error occurred. Please try again.');
+  }
+});
+
+// Initialize Supabase client
+const supabase = createClient(
+  'https://jnwoqedjzdbvgrpxmoix.supabase.co', // Supabase Database URL
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impud29xZWRqemRidmdycHhtb2l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcyMDczMjUsImV4cCI6MjA2Mjc4MzMyNX0.QQF9L_uVRYmjEVw5UauNfGbv2LaGK-Luww3ZdrdAcBw' // Supabase Anonymous Key
+);
+
+// Example usage (optional)
+console.log('Supabase client initialized:', supabase);
