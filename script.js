@@ -606,14 +606,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedOption = serviceType.options[serviceType.selectedIndex];
             selectedOption.classList.add('selected-option');
 
-            // Update container with selected option but keep dropdown visible
-            if (serviceTypeContainer && selectedOption) {
-                serviceTypeContainer.innerHTML = `
-                    <div class="selected-display">
-                        <span>Selected: ${selectedOption.text}</span>
-                    </div>
-                `;
-            }
+            // Remove or comment out this block:
+            // if (serviceTypeContainer && selectedOption) {
+            //     serviceTypeContainer.innerHTML = `
+            //         <div class="selected-display">
+            //             <span>Selected: ${selectedOption.text}</span>
+            //         </div>
+            //     `;
+            // }
         });
     }
 });
