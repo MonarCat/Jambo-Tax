@@ -268,50 +268,35 @@
         });
     </script>
     <section id="upload-documents" class="section upload-section">
-        <h2>Upload Your Documents</h2>
-        <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
-        <div class="upload-documents-container"></div>
+    <h2>Upload Your Documents</h2>
+    <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
+    <div class="upload-documents-container">
         <button id="upload-documents-btn" class="btn btn-primary" onclick="toggleUploadsContainer()">Upload Documents Here</button>
     </div>
-    </section>
 
     <!-- Compact Uploads Container -->
-    <div id="uploads-container" class="uploads-container hidden">
-        <h3>Upload Required Documents</h3>
-        <form method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="service-type">Service Type</label>
-                <select id="service-type" name="service_type" multiple required aria-label="Select service types">
-                    <option value="individual-tax-filing">Individual Tax Filing</option>
-                    <option value="business-tax-filing">Business Tax Filing</option>
-                    <option value="tax-consultancy">Tax Consultancy</option>
-                    <option value="employee-background-checks">Employee Background Checks</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="service-description">Service Description</label>
-                <input type="text" id="service-description" name="service_description" placeholder="Tell us what you want done:" required>
-            </div>
-            <div class="form-group">
-                <label for="kra-pin">KRA PIN No.</label>
-                <input type="text" id="kra-pin" name="kra_pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required>
-            </div>
-            <div class="form-group">
-                <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
-                <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png" required>
-            </div>
-            <div class="form-group">
-                <label for="other-documents">Other Document(s):</label>
-                <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png">
-            </div>
-            <div class="form-group">
-                <label for="contact">Email/WhatsApp No.:</label>
-                <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
-            </div>
-            <button type="submit" class="btn btn-secondary">Submit Documents</button>
-        </form>
-    </div>
+    <form id="uploads-container" method="POST" enctype="multipart/form-data" class="hidden">
+        <div class="form-group">
+            <label for="service-type">Service Type</label>
+            <select id="service-type" name="service_type" required>
+                <option value="individual-tax-filing">Individual Tax Filing</option>
+                <option value="business-tax-filing">Business Tax Filing</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="service-description">Service Description</label>
+            <input type="text" id="service-description" name="service_description" required>
+        </div>
+        <div class="form-group">
+            <label for="kra-pin">KRA PIN</label>
+            <input type="text" id="kra-pin" name="kra_pin" required>
+        </div>
+        <div class="form-group">
+            <label for="id-upload">Upload ID</label>
+            <input type="file" id="id-upload" name="id_upload" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
 </section>
 
     <section id="calculator" class="section calc-section">

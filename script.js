@@ -670,7 +670,6 @@ document.getElementById('uploads-container').addEventListener('submit', async fu
   const serviceType = form.service_type.value;
   const serviceDescription = form.service_description.value;
   const kraPin = form.kra_pin.value;
-  const contact = form.contact.value;
   const idUpload = form.id_upload.files[0];
   const otherDocuments = form.other_documents.files[0];
 
@@ -727,6 +726,54 @@ document.getElementById('uploads-container').addEventListener('submit', async fu
   } catch (err) {
     console.error('Unexpected error:', err);
     alert('An unexpected error occurred. Please try again.');
+  }
+});
+
+document.getElementById('uploads-container').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const form = e.target;
+
+  // Get form data
+  const serviceType = form.service_type.value;
+  const serviceDescription = form.service_description.value;
+  const kraPin = form.kra_pin.value;
+  const idUpload = form.id_upload.files[0];
+
+  try {
+    // Upload file to Supabase Storage
+    const idFilePath = `${Date.now()}_${idUpload.name}`;
+    const { data: idUploadData, error: idUploadError } = await supabase.storage
+      .from('uploads')
+      .upload(idFilePath, idUpload);
+
+    if (idUploadError) {
+      console.error('File upload error:', idUploadError);
+      alert('Failed to upload file.');
+      return;
+    }
+
+    // Insert form data into Supabase Database
+    const { data, error } = await supabase
+      .from('submissions')
+      .insert([
+        {
+          service_type: serviceType,
+          service_description: serviceDescription,
+          kra_pin: kraPin,
+          id_upload_path: idUploadData.path,
+        },
+      ]);
+
+    if (error) {
+      console.error('Database insert error:', error);
+      alert('Failed to save submission.');
+    } else {
+      alert('Submission successful!');
+      form.reset();
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    alert('An unexpected error occurred.');
   }
 });
 
