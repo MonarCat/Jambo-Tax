@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jambo Tax – Simplifying Tax Filing for Kenyans</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="image" href="images/Jambo Tax logo  dark theme.png">
+<link rel="preload" as="image" href="images/Professional female executive.jpg">
+<link rel="preload" as="image" href="images/johnny-cardoso-wjt7O8WKreQ-unsplash.jpg">
+<link rel="preload" as="image" href="images/Professional lady.jpg">
+<link rel="preload" as="image" href="images/Jambo Tax Developer.png">
+    <script async src="https://static.whatsapp.net/connect.js"></script>
+</head>
+<body>
+    <div id="loading-overlay" class="hidden">
+        <div class="loading-spinner"></div>
+    </div>
+
+    
+
+    <!-- Accessibility Menu -->
+    <div id="accessibility-menu" class="accessibility-menu">
+        <button id="accessibility-btn" class="accessibility-btn" aria-label="Accessibility Options">
+            <i class="fas fa-universal-access"></i> 
+        </button>
+        <div id="accessibility-options" class="accessibility-options hidden">
+            <button id="increase-font" class="accessibility-option" aria-label="Increase Font Size">Increase Font Size</button>
+            <button id="decrease-font" class="accessibility-option" aria-label="Decrease Font Size">Decrease Font Size</button>
+            <button id="toggle-contrast" class="accessibility-option" aria-label="Toggle High Contrast">High Contrast</button>
+            <button id="reset-settings" class="accessibility-option" aria-label="Reset Accessibility Settings">Reset</button>
+        </div>
+    </div>
+
+    <header class="hero" id="hero">
+        <nav class="nav-menu" aria-label="Main Navigation">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <img src="images/Jambo Tax logo  dark theme.png" alt="Jambo Tax Logo" class="logo" onerror="this.src='https://placehold.co/60x60/cccccc/ffffff?text=Error'; this.onerror=null;">
+                    <div class="brand-text">
+                        <span class="logo-title">Jambo Tax</span>
+                        <span class="logo-subtitle">Simplifying Tax Filing</span>
+                    </div>
+                </div>
+
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav-list">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <ul id="main-nav-list" class="mobile-menu">
+                    <li><a href="#hero" class="nav-link active">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#calculator" class="nav-link">Calculator</a></li>
+                    <li><a href="#our-team" class="nav-link">Team</a></li>
+                    <li class="dropdown">
+                        <a href="#resources" class="nav-link">Resources <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <div class="dropdown-content">
+                            <a href="https://itax.kra.go.ke" target="_blank" rel="noopener">KRA iTax Portal</a>
+                            <a href="https://www.hudumakenya.go.ke/" target="_blank" rel="noopener">Huduma Kenya</a>
+                            <a href="https://gok.kenya.go.ke/agencies" target="_blank" rel="noopener">Government Agencies</a>
+                            <a href="https://accounts.ecitizen.go.ke/en" target="_blank" rel="noopener">Ecitizen</a>
+                            <a href="https://www.treasury.go.ke" target="_blank" rel="noopener">National Treasury</a>
+                        </div>
+                    </li>
+                    <li><a href="#news-updates" class="nav-link">Updates</a></li>
+                    <li><a href="#compliance" class="nav-link">Compliance</a></li>
+                    <li><a href="#footer" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <h1>Jambo Tax</h1>
+            <p>Stress-free, professional tax filing for Kenyans. Beat deadlines with confidence.</p>
+            <a href="#services" class="btn btn-primary">Explore Services</a>
+        </div>
+    </header>
+
+    <section id="services" class="section">
+        <h2>Our Services</h2>
+        <p class="section-subtitle">Affordable and reliable tax solutions tailored for you.</p>
+
+<div class="slider-container">
+            <div class="service-cards slider">
+                
+            <div class="service-card card-index-0">
+                <i class="fas fa-user card-icon"></i>
+                <h3>Individual Tax Filing</h3>
+                <p>File your Nil and Income returns quickly and accurately.</p>
+                <p class="uploads"><strong>Required Uploads:</strong> KRA PIN, ID Copy, Employment Payslip/P9 or Bank Statements</p>
+                <p class="price">Starting from<br> KSh 99</p> <button class="btn btn-secondary" onclick="expandService('individual', this)">Select</button>
+            </div>
+            <div class="service-card card-index-1">
+                <i class="fas fa-briefcase card-icon"></i>
+                <h3>Business Tax Filing</h3>
+                <p>Groups, SMEs, Corporation, VAT & PAYE handled end-to-end.</p>
+                <p class="uploads"><strong>Required Uploads:</strong> Group Certificates, Business Registration Documents, Company PIN, CR12, Bank Statements, Receipts e.t.c.</p>
+                <p class="price">Starting from<br> KSh 499</p>
+                <button class="btn btn-secondary" onclick="expandService('business', this)">Select</button>
+            </div>
+            <div class="service-card card-index-2">
+                <i class="fas fa-comments-dollar card-icon"></i>
+                <h3>Tax Consultancy</h3>
+                <p>Strategize to minimize liability & maximize compliance.</p>
+                <p class="uploads"><strong>Required Uploads:</strong> Previous Returns, Income Reports, Audit Letters</p>
+                <p class="price">Contact for pricing</p>
+                <button class="btn btn-secondary" onclick="expandService('consultancy', this)">Select</button>
+            </div>
+            <div class="service-card card-index-4">
+                <i class="fas fa-shield-alt card-icon"></i>
+                <h3>Employee Background Checks</h3>
+                <p>Verify employee credentials and employment details.</p>
+                <p class="uploads"><strong>Required Uploads:</strong> Employee ID, Employment History</p>
+                <p class="price">Contact for pricing</p>
+                <button class="btn btn-secondary" onclick="expandService('background', this)">Select</button>       
+
+            </div> 
+        </div>
+    </section>
+
+    <section id="individual-services" class="section mini-services hidden">
+        <h2>Individual Tax Filing Services</h2>
+        <div class="mini-service-cards">
+            <div class="mini-card">
+                <h3>NIL Returns Filing</h3>
+                <p>Standard KRA returns for persons without income.</p>
+                <p class="price">KSh 99</p>
+                <button class="btn btn-primary" onclick="orderService('NIL Returns Filing', 69)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>STANDARD Returns Filing</h3>
+                <p>Returns for individuals with Income , including contractual work.</p>
+                <p class="price">KSh 199</p>
+                <button class="btn btn-primary" onclick="orderService('STANDARD Returns Filing', 199)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>COMPLEX Returns Filing</h3>
+                <p>Multiple income sources, rental income, capital gains.</p>
+                <p class="price">KSh 599</p>
+                <button class="btn btn-primary" onclick="orderService('COMPLEX Returns Filing', 599)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>Tax Planning</h3>
+                <p>Optimize your tax position with personalized advice.</p>
+                <p class="price">KSh 999</p>
+                <button class="btn btn-primary" onclick="orderService('Tax Planning', 999)">Order Now</button>
+            </div>
+        </div>
+        <button class="btn back-btn" onclick="hideAllMiniServices()">Back to Services</button>
+    </section>
+
+    <section id="business-services" class="section mini-services hidden">
+        <h2>Business Tax Filing Services</h2>
+        <div class="mini-service-cards">
+            <div class="mini-card">
+                <h3>Small Business Filing</h3>
+                <p>For sole proprietors and small businesses.</p>
+                <p class="price">KSh 599</p>
+                <button class="btn btn-primary" onclick="orderService('Small Business Filing', 599)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>Corporate Tax Returns</h3>
+                <p>Complete corporation tax returns and annual filings.</p>
+                <p class="price">KSh 9,999</p>
+                <button class="btn btn-primary" onclick="orderService('Corporate Tax Returns', 9,999)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>VAT & PAYE Returns</h3>
+                <p>Monthly and quarterly returns for VAT and PAYE.</p>
+                <p class="price">KSh 7,599</p>
+                <button class="btn btn-primary" onclick="orderService('VAT & PAYE Returns', 7599)">Order Now</button>
+            </div>
+        </div>
+        <button class="btn back-btn" onclick="hideAllMiniServices()">Back to Services</button>
+    </section>
+
+    <section id="consultancy-services" class="section mini-services hidden">
+        <h2>Tax Consultancy Services</h2>
+        <div class="mini-service-cards">
+            <div class="mini-card">
+                <h3>One-time Consultation</h3>
+                <p>1-hour consultation for specific tax questions.</p>
+                <p class="price">KSh 2,500</p> <button class="btn btn-primary" onclick="orderService('One-time Consultation', 2500)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>Tax Audit Support</h3>
+                <p>Professional assistance during KRA audits.</p>
+                <p class="price">KSh 15,000</p>
+                <button class="btn btn-primary" onclick="orderService('Tax Audit Support', 15000)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>Annual Tax Strategy</h3>
+                <p>Year-round tax planning and optimization.</p>
+                <p class="price">KSh 25,000</p>
+                <button class="btn btn-primary" onclick="orderService('Annual Tax Strategy', 25000)">Order Now</button>
+            </div>
+        </div>
+        <button class="btn back-btn" onclick="hideAllMiniServices()">Back to Services</button>
+    </section>
+    <!-- Add to payment section -->
+<div class="terms-agreement">
+    <label class="checkbox-container">
+        <input type="checkbox" id="terms-agreement" required>
+        <span class="checkmark"></span>
+        <span>
+            I agree to the <a href="Terms and Conditions.html" target="_blank">Terms & Conditions</a>
+            and <a href="Privacy Policy.html" target="_blank">Privacy Policy</a>
+        </span>
+    </label>
+    <div id="terms-error" class="error-message" aria-live="polite"></div>
+</div>
+    <section id="payment" class="section hidden">
+        <h2>Complete Your Order</h2>
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <p id="service-name">Service: </p>
+            <p id="service-price">Price: </p>
+        </div>
+
+        <div class="form-group">
+            <label for="payment-method">Choose Payment Method:</label>
+            <select id="payment-method" onchange="showPaymentForm()">
+                <option value="">Select a payment method</option>
+                <option value="Mpesa">Mobile Money</option>
+                <option value="PayPal">PayPal - Not Available at the moment.</option>
+                <option value="Bank">Bank Transfer - Not Available at the moment.</option>
+                <option value="Card">Credit/Debit Card - Not Available at the moment.</option>
+            </select>
+        </div>
+
+        <div id="mpesa-form" class="payment-form hidden">
+            <h3>Lipa na M-pesa</h3>
+            <p>To pay via M-Pesa, follow these steps:</p>
+            
+            <div class="manual-payment-guideline">
+                <h3>Manual Payment Instructions</h3>
+                <ol>
+                    <li>Open your M-Pesa menu on your phone.</li>
+                    <li>Select <strong>Lipa na M-pesa</strong>.</li>
+                    <li>Choose <strong>Paybill</strong>.</li>
+                    <li>Enter the Paybill Number: <strong>400200</strong>.</li>
+                    <li>For the Account Number, enter your <strong>01192985765400</strong>.</li>
+                    <li>Enter the amount to pay and confirm the transaction. (Pay to Co-op Bank: AFAMS ENTERPRISES)</li>
+                    <li>Once payment is complete, you will receive a confirmation SMS.</li>
+                </ol>
+                <p>After successful payment, please click the button below to confirm:</p>
+                <button id="mobile-money-pay-btn" class="btn btn-primary pay-button">
+                    Complete
+                    <span class="loading-spinner"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section id="confirmation" class="section hidden">
+        <h2>Thank You!</h2>
+        <p>Your payment has been successfully received. You will receive a confirmation email shortly. Our team is now processing your request and will deliver your tax filing(s) within 6 hours.</p>
+        <p>If you have any questions or need assistance, feel free to contact us at <a href="mailto:support@jambotax.co.ke" class="text-link">support@jambotax.co.ke</a>.</p>
+        <button id="back-to-home-btn" class="btn btn-primary" onclick="redirectToHome()">Back to Home</button>
+    </section>
+    <script>
+        document.getElementById('mobile-money-pay-btn').addEventListener('click', function () {
+            document.getElementById('payment').classList.add('hidden');
+            document.getElementById('confirmation').classList.remove('hidden');
+        });
+    </script>
+    <section id="upload-documents" class="section upload-section">
+    <h2>Upload Your Documents</h2>
+    <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
+    <div class="upload-documents-container">
+        <button id="upload-documents-btn" class="btn btn-primary" onclick="toggleUploadsContainer()">Upload Documents Here</button>
+    </div>
+
+    <!-- Compact Uploads Container -->
+    <form id="uploads-container" method="POST" enctype="multipart/form-data" class="hidden">
+        <div class="form-group">
+            <label for="service-type">Service Type</label>
+            <select id="service-type" name="service_type" required>
+                <option value="individual-tax-filing">Individual Tax Filing</option>
+                <option value="business-tax-filing">Business Tax Filing</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="service-description">Service Description</label>
+            <input type="text" id="service-description" name="service_description" required>
+        </div>
+        <div class="form-group">
+            <label for="kra-pin">KRA PIN</label>
+            <input type="text" id="kra-pin" name="kra_pin" required>
+        </div>
+        <div class="form-group">
+            <label for="id-upload">Upload ID</label>
+            <input type="file" id="id-upload" name="id_upload" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+</section>
+
+    <section id="calculator" class="section calc-section">
+        <h2>Estimate Your Income Tax</h2>
+        <p class="section-subtitle">Quickly estimate your monthly PAYE based on KRA rates.</p>
+        <div class="calculator-form">
+            <label for="income">Monthly Gross Income (KES):</label>
+            <input type="number" id="income" placeholder="Enter your gross monthly income" inputmode="numeric" aria-describedby="income-error"/>
+            <div id="income-error" class="error-message" aria-live="polite"></div>
+            <button class="btn btn-primary" onclick="calculateTax()">Calculate</button>
+        </div>
+        <p id="result" class="calculator-result" aria-live="polite"></p>
+    </section>
+
+    <section id="our-team" class="section team-gradient">
+        <h2>Our Team</h2>
+        <div class="slider-container">
+            <div class="team-slider slider">
+                <div class="team-member slider-item">
+                    <picture>
+                        <source 
+                            srcset="images/Professional-female-executive.webp" 
+                            type="image/webp">
+                        <source 
+                            srcset="images/Professional-female-executive.jpg" 
+                            type="image/jpeg">
+                        <img 
+                            src="images/Professional-female-executive.jpg" 
+                            alt="Team Member Jane Doe" 
+                            loading="lazy"
+                            decoding="async"
+                            width="300"
+                            height="200"
+                            onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
+                    </picture>
+                    <h3>Jane Doe</h3>
+                    <p>Lead Tax Advisor</p>
+                    <p>"Welcome to Jambo Tax – your trusted tax partner!"</p>
+                </div>
+                <div class="team-member slider-item">
+                     <img src="images/johnny-cardoso-wjt7O8WKreQ-unsplash.jpg" alt="Team Member John Mwangi" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
+                    <h3>John Mwangi</h3>
+                    <p>Senior Auditor</p>
+                    <p>"Ensuring compliance with every return."</p>
+                </div>
+                <div class="team-member slider-item">
+                     <img src="images/Professional lady.jpg" alt="Team Member Sarah Johnson" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
+                    <h3>Sarah Johnson</h3>
+                    <p>Tax Consultant</p>
+                    <p>"Helping you maximize deductions and minimize liabilities."</p>
+                </div>
+                <div class="team-member slider-item">
+                     <img src="images/Jambo Tax Developer.png" alt="Team Member David Kimani" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
+                    <h3>David Kimani</h3>
+                    <p>Compliance Officer</p>
+                    <p>"Keeping your filings up-to-date with KRA regulations."</p>
+                </div>
+                <div class="team-member slider-item">
+                     <img src="images/Jambo Tax logo  dark theme.png" alt="Team Member Mary Wambui" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
+                    <h3>Mary Wambui</h3>
+                    <p>Client Relations Manager</p>
+                    <p>"Your satisfaction is our priority!"</p>
+                </div> 
+                <div class="team-member slider-item">
+                     <img src="images/Jambo Tax logo  dark theme.png" alt="Team Member Peter Otieno" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
+                    <h3>Peter Otieno</h3>
+                    <p>Data Analyst</p>
+                    <p>"Transforming data into actionable insights."</p>
+                </div>
+            <button class="slider-btn prev-btn" aria-label="Previous team member"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next-btn" aria-label="Next team member"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section id="news-updates" class="section">
+        <h2>News & Updates</h2>
+        <p class="section-subtitle">Stay updated with the latest news and articles.</p>
+        <div class="slider-container">
+            <div class="slider blog-slider">
+                <div class="slider-item slider-item-height">
+                    <img src="images/tax-tips.jpg" alt="5 Tax Tips to Save Money in 2023" class="article-image">
+                    <h3><a href="articles/article1.html" target="_blank">5 Tax Tips to Save Money in 2023</a></h3>
+                    <p>Discover practical ways to reduce your tax liability and keep more of your hard-earned money.</p>
+                    <a href="articles/article1.html" class="read-more" target="_blank">Read More</a>
+                </div>
+                <div class="slider-item">
+                    <img src="images/kenyan-economy.jpg" alt="How the Kenyan Economy is Adapting to Global Trends" class="article-image">
+                    <h3><a href="articles/article2.html" target="_blank">How the Kenyan Economy is Adapting to Global Trends</a></h3>
+                    <p>Explore how Kenya is navigating global economic challenges and opportunities.</p>
+                    <a href="articles/article2.html" class="read-more" target="_blank">Read More</a>
+                </div>
+                <div class="slider-item slider-item-height">
+                    <img src="images/tax-regulations.jpg" alt="Understanding the New Tax Regulations in Kenya" class="article-image">
+                    <h3><a href="articles/article3.html" target="_blank">Understanding the New Tax Regulations in Kenya</a></h3>
+                    <p>A breakdown of the latest tax changes and what they mean for individuals and businesses.</p>
+                    <a href="articles/article3.html" class="read-more" target="_blank">Read More</a>
+                </div>
+                <div class="slider-item fixed-height">
+                    <img src="images/kenyan-economy-coins.jpg" alt="Top 10 Financial Mistakes to Avoid in 2023" class="article-image">
+                    <h3><a href="articles/article4.html" target="_blank">Top 10 Financial Mistakes to Avoid in 2023</a></h3>
+                    <p>Learn from common financial pitfalls and make smarter money decisions this year.</p>
+                    <a href="articles/article4.html" class="read-more" target="_blank">Read More</a>
+                </div>
+                <div class="slider-item fixed-height">
+                    <img src="images/inflation.jpg" alt="The Impact of Inflation on Kenyan Households" class="article-image">
+                    <h3><a href="articles/article5.html" target="_blank">The Impact of Inflation on Kenyan Households</a></h3>
+                    <p>Understand how rising prices are affecting everyday life and what you can do to cope.</p>
+                    <a href="articles/article5.html" class="read-more" target="_blank">Read More</a>
+                </div>
+                <div class="slider-item fixed-height">
+                    <img src="images/financial-planning.jpeg" alt="Financial Planning Strategies for 2023" class="article-image">
+                    <h3><a  href="articles/article6.html" target="_blank">Financial Planning Strategies for 2023</a></h3>
+                    <p>Get tips on budgeting, saving, and investing to secure your financial future.</p>
+                    <a href="articles/article6.html" class="read-more" target="_blank">Read More</a>
+                </div>
+            </div>
+        </div>
+    
+
+    <section id="compliance" class="section">
+        <h2>Compliance & Privacy</h2>
+        <p>We strictly adhere to KRA regulations and the Kenyan Data Protection Act (DPA). Your data is encrypted and stored securely.</p>
+        <p>Read our <a href="Privacy Policy.html" class="text-link">Privacy Policy</a> and <a href="Terms and Conditions.html" class="text-link">Terms & Conditions</a>.</p> We also use Cookies <p class="cookie-policy"><a href="policies/Cookie Policy.html" class="text-link">Cookie Policy</a></p>
+    </section>
+
+    <footer class="footer" id="footer">
+        <div class="footer-content">
+            <div class="newsletter">
+                <h3>Subscribe to Our Newsletter</h3>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" required class="newsletter-input" aria-label="Newsletter email input">
+                    <button type="submit" class="btn btn-secondary">Subscribe</button>
+                </form>
+                 <p id="newsletter-feedback" class="newsletter-feedback" aria-live="polite"></p>
+            </div>
+
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <p>Have questions? Contact us via your preferred method:</p>
+                <div class="contact-options">
+                    <div class="contact-item">
+                        <a href="https://wa.me/254702359618" target="_blank" rel="noopener" class="contact-link whatsapp-link">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Us
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('https://wa.me/254702359618', this)" aria-label="Copy WhatsApp link">
+                            <i class="fas fa-copy"></i> <span class="tooltip-text">Copy Link</span>
+                        </button>
+                    </div>
+                    <div class="contact-item">
+                        <a href="tel:+254702359618" class="contact-link">
+                            <i class="fas fa-phone"></i> Call: +254 702 359 618
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('+254702359618', this)" aria-label="Copy phone number">
+                            <i class="fas fa-copy"></i> <span class="tooltip-text">Copy Number</span>
+                        </button>
+                    </div>
+                    <div class="contact-item">
+                        <a href="mailto:info@jambotax.co.ke" class="contact-link">
+                            <i class="fas fa-envelope"></i> Email: info@jambotax.co.ke
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('info@jambotax.co.ke', this)" aria-label="Copy email address">
+                            <i class="fas fa-copy"></i> <span class="tooltip-text">Copy Email</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-media">
+                <h3>Follow Us</h3>
+                <a href="https://www.facebook.com/jambotax" target="_blank" rel="noopener" title="Follow us on Facebook" aria-label="Jambo Tax Facebook page"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/EustarcMowam" target="_blank" rel="noopener" title="Follow us on X (Twitter)" aria-label="Jambo Tax X (Twitter) profile"><i class="fab fa-twitter"></i></a>
+                
+                <a href="https://www.linkedin.com/in/moses-mwombe-75010515a/" target="_blank" rel="noopener" title="Follow us on LinkedIn" aria-label="Jambo Tax LinkedIn page"><i class="fab fa-linkedin"></i></a>
+                 <a href="https://www.youtube.com/" target="_blank" rel="noopener" title="Follow us on YouTube" aria-label="Jambo Tax YouTube channel"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <p class="copyright">© <span id="current-year"></span> Jambo Tax. All rights reserved.</p>
+        <p class="disclaimer">Disclaimer: Jambo Tax is not affiliated with the Kenya Revenue Authority (KRA). All tax filings are done in compliance with KRA regulations.</p>
+        
+        
+        <p>Managed by Afams Ltd(Enterprises)</p>
+        <!-- Add the "Top" button -->
+        <div class="footer-content">
+            <button id="top-button" class="top-btn" aria-label="Scroll to Top">↑</button>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <!-- Place this script at the end of the body tag -->
+<script>
+  var form = document.getElementById("my-form");
+  
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("my-form-status");
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        status.innerHTML = "Thanks for your submission!";
+        form.reset()
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+          } else {
+            status.innerHTML = "Oops! There was a problem submitting your form"
+          }
+        })
+      }
+    }).catch(error => {
+      status.innerHTML = "Oops! There was a problem submitting your form"
+    });
+  }
+  form.addEventListener("submit", handleSubmit)
+</script>
+    
+
+</body>
+</html>
