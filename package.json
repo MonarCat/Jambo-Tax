@@ -1,5 +1,14 @@
 {
-  "dependencies": {
-    "@supabase/supabase-js": "^2.49.4"
+  "name": "jambo-tax",
+  "version": "1.0.0",
+  "description": "Frontend static site for Jambo Tax",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server ."
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.0"
   }
 }
