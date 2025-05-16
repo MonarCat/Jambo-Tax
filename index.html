@@ -207,7 +207,7 @@
         <input type="checkbox" id="terms-agreement" required>
         <span class="checkmark"></span>
         <span>
-            I agree to the <a href="Terms and Conditions.html" target="_blank">Terms & Conditions</a>
+            I agree to the <a href="policies/Terms and Conditions.html" target="_blank">Terms & Conditions</a>
             and <a href="Privacy Policy.html" target="_blank">Privacy Policy</a>
         </span>
     </label>
@@ -278,7 +278,7 @@
     <!-- Compact Uploads Container -->
     <div id="uploads-container" class="uploads-container hidden">
         <h3>Upload Required Documents</h3>
-        <form id="uploads-form" method="POST" enctype="multipart/form-data" data-netlify="true">
+        <form id="my-form" method="POST" enctype="multipart/form-data" data-netlify="true">
             <div class="form-group">
                 <label for="service-type">Service Type</label>
                 <select id="service-type" name="service_type" multiple required aria-label="Select service types">
@@ -331,22 +331,7 @@
         <div class="slider-container">
             <div class="team-slider slider">
                 <div class="team-member slider-item">
-                    <picture>
-                        <source 
-                            srcset="images/Professional-female-executive.webp" 
-                            type="image/webp">
-                        <source 
-                            srcset="images/Professional-female-executive.jpg" 
-                            type="image/jpeg">
-                        <img 
-                            src="images/Professional-female-executive.jpg" 
-                            alt="Team Member Jane Doe" 
-                            loading="lazy"
-                            decoding="async"
-                            width="300"
-                            height="200"
-                            onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    </picture>
+                     <img src="images/Professional female executive.jpg" alt="Team Member Jane Doe" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
                     <h3>Jane Doe</h3>
                     <p>Lead Tax Advisor</p>
                     <p>"Welcome to Jambo Tax – your trusted tax partner!"</p>
@@ -434,14 +419,14 @@
     <section id="compliance" class="section">
         <h2>Compliance & Privacy</h2>
         <p>We strictly adhere to KRA regulations and the Kenyan Data Protection Act (DPA). Your data is encrypted and stored securely.</p>
-        <p>Read our <a href="Privacy Policy.html" class="text-link">Privacy Policy</a> and <a href="policies/Terms and Conditions.html" class="text-link">Terms & Conditions</a>.</p> We also use Cookies <p class="cookie-policy"><a href="policies/Cookie Policy.html" class="text-link">Cookie Policy</a></p>
+        <p>Read our <a href="Privacy Policy.html" class="text-link">Privacy Policy</a> and <a href="policiess/Terms and Conditions.html" class="text-link">Terms & Conditions</a>.</p> We also use Cookies <p class="cookie-policy"><a href="policies/Cookie Policy.html" class="text-link">Cookie Policy</a></p>
     </section>
 
     <footer class="footer" id="footer">
         <div class="footer-content">
             <div class="newsletter">
                 <h3>Subscribe to Our Newsletter</h3>
-                <form class="newsletter-form" id="newsletter-form">
+                <form class="newsletter-form" id="newsletter-form" data-netlify="true">
                     <input type="email" id="newsletter-email" placeholder="Enter your email" required class="newsletter-input" aria-label="Newsletter email input">
                     <button type="submit" class="btn btn-secondary">Subscribe</button>
                 </form>
