@@ -210,6 +210,30 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+    // Service card buttons
+    document.querySelectorAll('.service-card button').forEach(button => {
+        button.addEventListener('click', function() {
+            const serviceType = this.dataset.serviceType;
+            expandService(serviceType);
+        });
+    });
+
+    // Upload button
+    const uploadBtn = document.getElementById('upload-documents-btn');
+    if (uploadBtn) {
+        uploadBtn.addEventListener('click', toggleUploadsContainer);
+    }
+
+    // Uploads form
+    const uploadsForm = document.getElementById('my-form');
+    if (uploadsForm) {
+        uploadsForm.addEventListener('submit', function(e) {
+            const uploadsContainer = document.getElementById('uploads-container');
+            if (uploadsContainer) uploadsContainer.classList.add('hidden');
+            showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
+        });
+    }
+
 
     // Copyright year
     const yearEl = document.getElementById('current-year');
@@ -418,15 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(script);
     }
 
-    // Uploads form
-    const uploadsForm = document.getElementById('uploads-form');
-    if (uploadsForm) {
-        uploadsForm.addEventListener('submit', function () {
-            const uploadsContainer = document.getElementById('uploads-container');
-            if (uploadsContainer) uploadsContainer.classList.add('hidden');
-            showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
-        });
-    }
+   
 });
 // Add these Netlify form enhancements:
 document.addEventListener('DOMContentLoaded', () => {
@@ -438,16 +454,6 @@ document.addEventListener('DOMContentLoaded', () => {
     history.replaceState(null, '', window.location.pathname);
   }
 });
-
-  // Enhanced Uploads Form
-  const uploadsForm = document.getElementById('uploads-form');
-  if(uploadsForm) {
-    uploadsForm.addEventListener('submit', function(e) {
-      const uploadsContainer = document.getElementById('uploads-container');
-      if(uploadsContainer) uploadsContainer.classList.add('hidden');
-      showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
-    });
-  }
 
 // New Toast Notification System
 function showToast(message, type = 'info') {

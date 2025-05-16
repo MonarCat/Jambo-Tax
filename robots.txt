@@ -1,0 +1,26 @@
+# robots.txt for jambotax.co.ke
+User-agent: *
+Allow: /
+
+# Allow all bots to access all content
+Sitemap: https://jambotax.co.ke/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /login/
+Disallow: /private/
+
+# Disallow duplicate content if applicable
+Disallow: /tag/
+Disallow: /category/
+Disallow: /*?*
+
+# Disallow temporary or test pages
+Disallow: /temp/
+Disallow: /test/
+Disallow: /dev/
+
+# Disallow specific file types if needed
+Disallow: /*.pdf$
+Disallow: /*.doc$

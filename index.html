@@ -92,7 +92,8 @@
                 <h3>Individual Tax Filing</h3>
                 <p>File your Nil and Income returns quickly and accurately.</p>
                 <p class="uploads"><strong>Required Uploads:</strong> KRA PIN, ID Copy, Employment Payslip/P9 or Bank Statements</p>
-                <p class="price">Starting from<br> KSh 69</p> <button class="btn btn-secondary" onclick="expandService('individual', this)">Select</button>
+                <p class="price">Starting from<br> KSh 69</p> 
+                <button class="btn btn-secondary" data-service-type="individual">Select</button>
             </div>
             <div class="service-card card-index-1">
                 <i class="fas fa-briefcase card-icon"></i>
@@ -100,7 +101,7 @@
                 <p>Groups, SMEs, Corporation, VAT & PAYE handled end-to-end.</p>
                 <p class="uploads"><strong>Required Uploads:</strong> Group Certificates, Business Registration Documents, Company PIN, CR12, Bank Statements, Receipts e.t.c.</p>
                 <p class="price">Starting from<br> KSh 499</p>
-                <button class="btn btn-secondary" onclick="expandService('business', this)">Select</button>
+                <button class="btn btn-secondary" data-service-type="business">Select</button>
             </div>
             <div class="service-card card-index-2">
                 <i class="fas fa-comments-dollar card-icon"></i>
@@ -108,7 +109,7 @@
                 <p>Strategize to minimize liability & maximize compliance.</p>
                 <p class="uploads"><strong>Required Uploads:</strong> Previous Returns, Income Reports, Audit Letters</p>
                 <p class="price">Contact for pricing</p>
-                <button class="btn btn-secondary" onclick="expandService('consultancy', this)">Select</button>
+                <button class="btn btn-secondary" data-service-type="consultancy">Select</button>
             </div>
             <div class="service-card card-index-4">
                 <i class="fas fa-shield-alt card-icon"></i>
@@ -116,7 +117,7 @@
                 <p>Verify employee credentials and employment details.</p>
                 <p class="uploads"><strong>Required Uploads:</strong> Employee ID, Employment History</p>
                 <p class="price">Contact for pricing</p>
-                <button class="btn btn-secondary" onclick="expandService('background', this)">Select</button>       
+                <button class="btn btn-secondary" data-service-type="background">Select</button>       
 
             </div> 
         </div>
@@ -271,7 +272,7 @@
         <h2>Upload Your Documents</h2>
         <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
         <div class="upload-documents-container"></div>
-        <button id="upload-documents-btn" class="btn btn-primary" onclick="toggleUploadsContainer()">Upload Documents Here</button>
+        <button id="upload-documents-btn" class="btn btn-primary" class="btn btn-primary">Upload Documents Here</button>
     </div>
     </section>
 
@@ -390,7 +391,7 @@
                     <a href="articles/article2.html" class="read-more" target="_blank">Read More</a>
                 </div>
                 <div class="slider-item slider-item-height">
-                    <img src="images/tax-regulations.jpg" alt="Understanding the New Tax Regulations in Kenya" class="article-image">
+                    <img src="images/pexels-sithumrulzs-10923112.jpg" alt="Understanding the New Tax Regulations in Kenya" class="article-image">
                     <h3><a href="articles/article3.html" target="_blank">Understanding the New Tax Regulations in Kenya</a></h3>
                     <p>A breakdown of the latest tax changes and what they mean for individuals and businesses.</p>
                     <a href="articles/article3.html" class="read-more" target="_blank">Read More</a>
