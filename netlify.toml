@@ -1,4 +1,10 @@
 [build]
-  command = "npm run build"
-  publish = "build/"
+  command = ""
+  publish = "."
   functions = "functions/"
+
+  [plugins]
+  package = "@netlify/plugin-lighthouse"
+
+[[plugins]]
+  package = "netlify-plugin-formspree"
