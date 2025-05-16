@@ -1703,3 +1703,69 @@ figcaption {
   margin-top: 10px; /* Add spacing above the caption */
   font-style: italic; /* Make the caption italic */
 }
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 10000;
+}
+
+.toast-success {
+  background: #1fa67a;
+  border-left: 5px solid #178a63;
+}
+
+/* Upload Progress */
+.upload-progress {
+  margin: 1rem 0;
+  background: #f1f1f1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--secondary-color);
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  display: block;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Enhanced File Input */
+.form-group input[type="file"] {
+  border: 2px dashed var(--border-color);
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: var(--primary-color);
+  background: rgba(0, 90, 158, 0.05);
+}
+
+/* Service Card Hover Animation */
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, 
+              border-color 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.service-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-8px) scale(1.02);
+}

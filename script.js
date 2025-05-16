@@ -176,82 +176,6 @@ function toggleLanguage() {
     }
 }
 
-function submitDetails(cardIndex) {
-    const kraPin = document.getElementById(`kra-pin-${cardIndex}`)?.value;
-    const idUpload = document.getElementById(`id-upload-${cardIndex}`)?.files[0];
-    const contact = document.getElementById(`contact-${cardIndex}`)?.value;
-
-    if (!kraPin || !idUpload || !contact) {
-        alert('Please fill in all required fields.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('kraPin', kraPin);
-    formData.append('idUpload', idUpload);
-    formData.append('contact', contact);
-
-    fetch('https://formspree.io/f/mdkgpdnks', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Details submitted successfully!');
-            const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
-            if (requiredUploads) requiredUploads.classList.add('hidden');
-        } else {
-            alert('Failed to submit details. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error submitting details:', error);
-        alert('An error occurred. Please try again.');
-    });
-}
-
-function checkPaymentStatus() {
-    return true;
-}
-
-function showRequiredUploads(cardIndex) {
-    const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
-    if (requiredUploads) requiredUploads.classList.remove('hidden');
-}
-
-function completePayment(cardIndex) {
-    const paymentCompleted = true;
-    if (paymentCompleted) {
-        showRequiredUploads(cardIndex);
-        alert('Payment completed! You can now enter your details.');
-    } else {
-        alert('Payment not completed. Please complete the payment first.');
-    }
-}
-
-function initiatePayment(phoneNumber, amount, accountReference, transactionDesc) {
-    fetch('payment.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            phoneNumber: phoneNumber,
-            amount: amount,
-            accountReference: accountReference,
-            transactionDesc: transactionDesc,
-        }),
-    })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-        })
-        .catch(error => {
-            console.error('Error initiating payment:', error);
-            alert('An error occurred while initiating payment.');
-        });
-}
-
 function toggleUploadsContainer() {
     const uploadsContainer = document.getElementById('uploads-container');
     if (uploadsContainer) uploadsContainer.classList.toggle('hidden');
@@ -260,6 +184,15 @@ function toggleUploadsContainer() {
 function redirectToHome() {
     window.location.href = '#hero';
 }
+
+// Make all HTML-called functions global
+window.expandService = expandService;
+window.hideAllMiniServices = hideAllMiniServices;
+window.orderService = orderService;
+window.toggleUploadsContainer = toggleUploadsContainer;
+window.redirectToHome = redirectToHome;
+window.calculateTax = calculateTax;
+window.copyToClipboard = copyToClipboard;
 
 // Combined DOMContentLoaded listeners and wrapped all DOM queries in checks
 document.addEventListener('DOMContentLoaded', () => {
@@ -488,18 +421,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Uploads form
     const uploadsForm = document.getElementById('uploads-form');
     if (uploadsForm) {
-        uploadsForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const kraPin = document.getElementById('kra-pin')?.value;
-            const idUpload = document.getElementById('id-upload')?.files[0];
-            const contact = document.getElementById('contact')?.value;
-            if (!kraPin || !idUpload || !contact) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            alert('Documents submitted successfully!');
+        uploadsForm.addEventListener('submit', function () {
             const uploadsContainer = document.getElementById('uploads-container');
             if (uploadsContainer) uploadsContainer.classList.add('hidden');
+            showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
         });
     }
 });
+// Add these Netlify form enhancements:
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('form-submitted') === 'uploads') {
+    showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
+    const uploadsContainer = document.getElementById('uploads-container');
+    if (uploadsContainer) uploadsContainer.classList.add('hidden');
+    history.replaceState(null, '', window.location.pathname);
+  }
+});
+
+  // Enhanced Uploads Form
+  const uploadsForm = document.getElementById('uploads-form');
+  if(uploadsForm) {
+    uploadsForm.addEventListener('submit', function(e) {
+      const uploadsContainer = document.getElementById('uploads-container');
+      if(uploadsContainer) uploadsContainer.classList.add('hidden');
+      showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
+    });
+  }
+
+// New Toast Notification System
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => toast.remove(), 5000);
+}
