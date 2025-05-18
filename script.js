@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 // Global variables (Keep as is)
 let selectedService = '';
 let selectedServiceName = '';
@@ -9,779 +7,447 @@ let selectedServicePrice = 0;
 function updateActiveNavLink() {
     let scrollPosition = window.scrollY;
     document.querySelectorAll('.section').forEach(section => {
-        const sectionTop = section.offsetTop - 100; // Adjust offset as needed
+        const sectionTop = section.offsetTop - 100;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
         const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            if (navLink) {
-                navLink.classList.add('active');
-            }
+            if (navLink) navLink.classList.add('active');
         }
-        // Special case for top of page
-        else if (scrollPosition < document.getElementById('services').offsetTop - 100) {
-             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-             document.querySelector('.nav-link[href="#hero"]').classList.add('active');
+        else if (scrollPosition < (document.getElementById('services')?.offsetTop ?? 0) - 100) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const heroLink = document.querySelector('.nav-link[href="#hero"]');
+            if (heroLink) heroLink.classList.add('active');
         }
     });
 }
 
-// Expand service to show mini-services (Keep logic, minor adjustments possible)
 function expandService(serviceType) {
-  hideAllMiniServices();
-  const miniServiceSection = document.getElementById(`${serviceType}-services`);
-  miniServiceSection.classList.remove('hidden');
-  // Scroll to the mini-services section smoothly
-  miniServiceSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    hideAllMiniServices();
+    const miniServiceSection = document.getElementById(`${serviceType}-services`);
+    if (miniServiceSection) {
+        miniServiceSection.classList.remove('hidden');
+        miniServiceSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
-// Hide all mini-service sections (Keep as is)
 function hideAllMiniServices() {
-  const miniServiceSections = document.querySelectorAll('.mini-services');
-  miniServiceSections.forEach(section => {
-    section.classList.add('hidden');
-  });
+    const miniServiceSections = document.querySelectorAll('.mini-services');
+    miniServiceSections.forEach(section => {
+        section.classList.add('hidden');
+    });
 }
 
-// Order a specific service (Keep logic, maybe add loading state)
 function orderService(serviceName, price) {
-  selectedServiceName = serviceName;
-  selectedServicePrice = price;
+    selectedServiceName = serviceName;
+    selectedServicePrice = price;
 
-  document.getElementById('service-name').textContent = `Service: ${serviceName}`;
-  document.getElementById('service-price').textContent = `Price: KSh ${price.toLocaleString()}`;
+    const nameEl = document.getElementById('service-name');
+    const priceEl = document.getElementById('service-price');
+    const paymentSection = document.getElementById('payment');
+    const paymentMethod = document.getElementById('payment-method');
 
-  const paymentSection = document.getElementById('payment');
-  paymentSection.classList.remove('hidden');
-  hideAllPaymentForms();
-  document.getElementById('payment-method').value = ''; // Reset dropdown
+    if (nameEl) nameEl.textContent = `Service: ${serviceName}`;
+    if (priceEl) priceEl.textContent = `Price: KSh ${price.toLocaleString()}`;
+    if (paymentSection) paymentSection.classList.remove('hidden');
+    hideAllPaymentForms();
+    if (paymentMethod) paymentMethod.value = '';
 
-  paymentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (paymentSection) paymentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Show payment form based on selected method (Keep as is)
 function showPaymentForm() {
-  hideAllPaymentForms();
-  const paymentMethod = document.getElementById('payment-method').value;
-  if (paymentMethod) {
-    const form = document.getElementById(`${paymentMethod.toLowerCase()}-form`);
-    if(form) form.classList.remove('hidden');
-  }
+    hideAllPaymentForms();
+    const paymentMethod = document.getElementById('payment-method');
+    if (paymentMethod && paymentMethod.value) {
+        const form = document.getElementById(`${paymentMethod.value.toLowerCase()}-form`);
+        if (form) form.classList.remove('hidden');
+    }
 }
 
-// Hide all payment forms (Keep as is)
 function hideAllPaymentForms() {
-  const paymentForms = document.querySelectorAll('.payment-form');
-  paymentForms.forEach(form => {
-    form.classList.add('hidden');
-  });
+    const paymentForms = document.querySelectorAll('.payment-form');
+    paymentForms.forEach(form => {
+        form.classList.add('hidden');
+    });
 }
 
-// Hide payment section (Keep as is)
 function hidePayment() {
-  document.getElementById('payment').classList.add('hidden');
-  document.getElementById('payment-method').value = '';
-  hideAllPaymentForms();
-  // Scroll back to services section
-   document.getElementById('services').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const payment = document.getElementById('payment');
+    const paymentMethod = document.getElementById('payment-method');
+    if (payment) payment.classList.add('hidden');
+    if (paymentMethod) paymentMethod.value = '';
+    hideAllPaymentForms();
+    const services = document.getElementById('services');
+    if (services) services.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Return to services after confirmation (Keep as is)
 function returnToServices() {
-  document.getElementById('confirmation').classList.add('hidden');
-  hideAllMiniServices();
-  document.getElementById('services').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const confirmation = document.getElementById('confirmation');
+    if (confirmation) confirmation.classList.add('hidden');
+    hideAllMiniServices();
+    const services = document.getElementById('services');
+    if (services) services.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Tax calculator function (Improved validation)
 function calculateTax() {
-  const incomeInput = document.getElementById('income');
-  const resultDisplay = document.getElementById('result');
-  const income = parseFloat(incomeInput.value);
+    const incomeInput = document.getElementById('income');
+    const resultDisplay = document.getElementById('result');
+    if (!incomeInput || !resultDisplay) return;
+    const income = parseFloat(incomeInput.value);
 
-  if (isNaN(income) || income < 0) {
-    resultDisplay.textContent = 'Please enter a valid positive income.';
-    resultDisplay.style.color = 'red';
-    return;
-  }
-  if (income === 0) {
-     resultDisplay.textContent = 'Estimated PAYE: KES 0.00 per month';
-     resultDisplay.style.color = 'var(--secondary-color)'; // Use CSS variable
-     return;
-  }
+    if (isNaN(income) || income < 0) {
+        resultDisplay.textContent = 'Please enter a valid positive income.';
+        resultDisplay.style.color = 'red';
+        return;
+    }
+    if (income === 0) {
+        resultDisplay.textContent = 'Estimated PAYE: KES 0.00 per month';
+        resultDisplay.style.color = 'var(--secondary-color)';
+        return;
+    }
 
-  // Kenya PAYE bands (Ensure these are up-to-date for 2025 - placeholder values used)
-  let tax = 0;
-  const relief = 2400; // Monthly personal relief (example)
+    let tax = 0;
+    const relief = 2400;
 
-  if (income <= 24000) tax = income * 0.10;
-  else if (income <= 32333) tax = 2400 + (income - 24000) * 0.25;
-  else if (income > 32333) tax = 2400 + (32333 - 24000) * 0.25 + (income - 32333) * 0.30;
-  // Add more bands if necessary based on current KRA rates
+    if (income <= 24000) tax = income * 0.10;
+    else if (income <= 32333) tax = 2400 + (income - 24000) * 0.25;
+    else if (income > 32333) tax = 2400 + (32333 - 24000) * 0.25 + (income - 32333) * 0.30;
 
-  let netTax = Math.max(0, tax - relief); // Ensure tax is not negative after relief
+    let netTax = Math.max(0, tax - relief);
 
-  resultDisplay.textContent = `Estimated PAYE: KES ${netTax.toFixed(2)} per month`;
-  resultDisplay.style.color = 'var(--secondary-color)'; // Use CSS variable
+    resultDisplay.textContent = `Estimated PAYE: KES ${netTax.toFixed(2)} per month`;
+    resultDisplay.style.color = 'var(--secondary-color)';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const topButton = document.getElementById('top-button');
-
-  // Show the "Top" button when scrolling down
-  window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) { // Show after scrolling 400px
-          topButton.classList.add('visible');
-      } else {
-          topButton.classList.remove('visible');
-      }
-  });
-
-  // Scroll to the top when the button is clicked
-  topButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
-
-// New: Copy to Clipboard Functionality
 function copyToClipboard(text, buttonElement) {
+    if (!navigator.clipboard) {
+        alert('Clipboard API not supported.');
+        return;
+    }
     navigator.clipboard.writeText(text).then(() => {
-        // Success feedback
-        const tooltip = buttonElement.querySelector('.tooltip-text');
+        const tooltip = buttonElement?.querySelector('.tooltip-text');
+        if (!tooltip) return;
         const originalText = tooltip.textContent;
         tooltip.textContent = 'Copied!';
-        buttonElement.classList.add('copied'); // Add class for styling if needed
-
-        // Reset tooltip after a delay
+        buttonElement.classList.add('copied');
         setTimeout(() => {
             tooltip.textContent = originalText;
             buttonElement.classList.remove('copied');
-        }, 1500); // Reset after 1.5 seconds
+        }, 1500);
     }).catch(err => {
         console.error('Failed to copy text: ', err);
-        // Optionally provide fallback or error message
         alert('Failed to copy. Please copy manually.');
     });
 }
 
+function processPayment(method) {
+    setTimeout(() => {
+        const payment = document.getElementById('payment');
+        const confirmationSection = document.getElementById('confirmation');
+        if (payment) payment.classList.add('hidden');
+        if (confirmationSection) {
+            confirmationSection.classList.remove('hidden');
+            confirmationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        console.log(`Payment of KSh ${selectedServicePrice} for ${selectedServiceName} processed via ${method}`);
+    }, 500);
+}
 
-// Payment Processing Simulation (Add basic validation)
-document.addEventListener('DOMContentLoaded', function() {
-    // Update copyright year
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+function animateServices() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.2}s`;
+    });
+}
+
+function toggleLanguage() {
+    const enContent = document.querySelector('.legal-content');
+    const swContent = document.getElementById('swahili-content');
+    if (!enContent || !swContent) return;
+    enContent.classList.toggle('hidden');
+    swContent.classList.toggle('hidden');
+    const pdfBtn = document.querySelector('.btn-pdf');
+    if (pdfBtn) {
+        const currentLang = swContent.classList.contains('hidden') ? 'en' : 'sw';
+        pdfBtn.href = `${window.location.pathname.replace('.html','')}-${currentLang}.pdf`;
+    }
+}
+
+function toggleUploadsContainer() {
+    const uploadsContainer = document.getElementById('uploads-container');
+    if (uploadsContainer) uploadsContainer.classList.toggle('hidden');
+}
+
+function redirectToHome() {
+    window.location.href = '#hero';
+}
+
+// Make all HTML-called functions global
+window.expandService = expandService;
+window.hideAllMiniServices = hideAllMiniServices;
+window.orderService = orderService;
+window.toggleUploadsContainer = toggleUploadsContainer;
+window.redirectToHome = redirectToHome;
+window.calculateTax = calculateTax;
+window.copyToClipboard = copyToClipboard;
+
+// Combined DOMContentLoaded listeners and wrapped all DOM queries in checks
+document.addEventListener('DOMContentLoaded', () => {
+    // Top button
+    const topButton = document.getElementById('top-button');
+    if (topButton) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                topButton.classList.add('visible');
+            } else {
+                topButton.classList.remove('visible');
+            }
+        });
+        topButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    // Service card buttons
+    document.querySelectorAll('.service-card button').forEach(button => {
+        button.addEventListener('click', function() {
+            const serviceType = this.dataset.serviceType;
+            expandService(serviceType);
+        });
+    });
+
+    // Upload button
+    const uploadBtn = document.getElementById('upload-documents-btn');
+    if (uploadBtn) {
+        uploadBtn.addEventListener('click', toggleUploadsContainer);
+    }
+
+    // Uploads form
+    const uploadsForm = document.getElementById('my-form');
+    if (uploadsForm) {
+        uploadsForm.addEventListener('submit', function(e) {
+            const uploadsContainer = document.getElementById('uploads-container');
+            if (uploadsContainer) uploadsContainer.classList.add('hidden');
+            showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
+        });
+    }
+
+
+    // Copyright year
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     // Initial nav link update
-     updateActiveNavLink();
+    updateActiveNavLink();
 
-    // M-Pesa Payment
-    document.getElementById('mpesa-pay-btn').addEventListener('click', function() {
-        const phoneNumber = document.getElementById('mpesa-phone').value.trim();
-        // Basic Kenyan phone number validation (example)
-        if (!phoneNumber || !/^0[17]\d{8}$/.test(phoneNumber)) {
-            alert('Please enter a valid M-Pesa phone number (e.g., 07XXXXXXXX or 01XXXXXXXX).');
-            return;
-        }
-        console.log(`Processing M-Pesa payment for ${selectedServiceName} (KSh ${selectedServicePrice}) to phone: ${phoneNumber}`);
-        processPayment('M-Pesa');
+    
+
+    
+
+    // Smooth scroll for all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
 
-    // PayPal Payment
-    document.getElementById('paypal-pay-btn').addEventListener('click', function() {
-        console.log(`Redirecting to PayPal for payment of ${selectedServiceName} (KSh ${selectedServicePrice})`);
-        // Add actual PayPal SDK integration here if needed
-        processPayment('PayPal');
-    });
+    // Service Carousel Animation
+    animateServices();
 
-    // Bank Transfer Payment
-    document.getElementById('bank-pay-btn').addEventListener('click', function() {
-        const bankName = document.getElementById('bank-name').value.trim();
-        const accountNumber = document.getElementById('account-number').value.trim();
-        if (!bankName || !accountNumber) {
-            alert('Please enter both Bank Name and Account Number.');
-            return;
-        }
-        console.log(`Processing Bank Transfer for ${selectedServiceName} (KSh ${selectedServicePrice}) from ${bankName}, Account: ${accountNumber}`);
-        processPayment('Bank Transfer');
-    });
-
-    // Card Payment (Simplified validation)
-    document.getElementById('card-pay-btn').addEventListener('click', function() {
-        const cardNumber = document.getElementById('card-number').value.trim();
-        const expiryDate = document.getElementById('expiry-date').value.trim();
-        const cvv = document.getElementById('cvv').value.trim();
-        const cardName = document.getElementById('card-name').value.trim();
-
-        // Basic presence check - real validation is complex and needs libraries/server-side checks
-        if (!cardNumber || !expiryDate || !cvv || !cardName) {
-            alert('Please enter all card details.');
-            return;
-        }
-        // Basic format checks (examples)
-        if (!/^\d{13,19}$/.test(cardNumber.replace(/\s/g, ''))) {
-             alert('Please enter a valid card number.');
-             return;
-        }
-         if (!/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(expiryDate)) {
-             alert('Please enter a valid expiry date (MM/YY).');
-             return;
-        }
-        if (!/^\d{3,4}$/.test(cvv)) {
-             alert('Please enter a valid CVV.');
-             return;
-        }
-
-        console.log(`Processing Card payment for ${selectedServiceName} (KSh ${selectedServicePrice}) with card ending in ${cardNumber.slice(-4)}`);
-        processPayment('Card');
-    });
-});
-
-// Process Payment and Show Confirmation (Keep simulation logic)
-function processPayment(method) {
-  // Add a small delay to simulate processing
-  // You might show a loading spinner here
-  setTimeout(() => {
-      document.getElementById('payment').classList.add('hidden');
-      const confirmationSection = document.getElementById('confirmation');
-      confirmationSection.classList.remove('hidden');
-      confirmationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      console.log(`Payment of KSh ${selectedServicePrice} for ${selectedServiceName} processed via ${method}`);
-      // Here you would typically get a transaction ID from the real payment API
-      // and potentially display it or send it in the confirmation email.
-  }, 500); // 0.5 second delay simulation
-}
-// Slider Animation
-document.addEventListener('DOMContentLoaded', function() {
-  const teamSlider = document.querySelector('.team-slider');
-  const blogSlider = document.querySelector('.blog-slider');
-  
-  [teamSlider, blogSlider].forEach(slider => {
-    if (slider) {
-      setInterval(() => {
-        if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth) {
-          slider.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          slider.scrollBy({ left: 320, behavior: 'smooth' });
-        }
-      }, 6000);
+    // Newsletter Subscription
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input')?.value;
+            console.log('Subscribed email:', email);
+            alert('Thank you for subscribing!');
+        });
     }
-  });
-});
-// Add smooth scroll to all links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});
 
-// Service Carousel Animation
-function animateServices() {
-  const serviceCards = document.querySelectorAll('.service-card');
-  serviceCards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 0.2}s`;
-  });
-}
-window.addEventListener('load', animateServices);
-
-// Newsletter Subscription
-document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const email = this.querySelector('input').value;
-  // Add your newsletter service integration here
-  console.log('Subscribed email:', email);
-  alert('Thank you for subscribing!');
-});
-document.addEventListener('DOMContentLoaded', () => {
+    // Slider controls
     const slider = document.querySelector('.slider');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
+    if (slider && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
+        });
+    }
 
-    prevBtn.addEventListener('click', () => {
-        slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
-    });
-
-    nextBtn.addEventListener('click', () => {
-        slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger menu
     const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const navLinks = document.getElementById('main-nav-list');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+    }
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
+    // Red accents
+    const redTargets = [
+        document.querySelector(".hero h1"),
+        document.querySelector(".hero p"),
+        document.querySelector(".btn.btn-primary"),
+        document.querySelector(".footer h2"),
+        ...document.querySelectorAll(".service-card:nth-child(2) h3"),
+        ...document.querySelectorAll(".service-card:nth-child(2) .price"),
+        ...document.querySelectorAll(".team-member:nth-child(4) h3"),
+        ...document.querySelectorAll(".team-member:nth-child(4) p")
+    ];
+    redTargets.forEach(el => {
+        if (el) el.classList.add("highlight-red");
     });
 
-    // Close the menu when a link is clicked
-    navLinks.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') {
-            navLinks.classList.remove('active');
-        }
+    const redBackgrounds = [
+        document.querySelector(".newsletter-form button"),
+        ...document.querySelectorAll(".slider-item:nth-child(2)")
+    ];
+    redBackgrounds.forEach(el => {
+        if (el) el.classList.add("bg-highlight-red");
     });
-});
-// Inject red accents after DOM load
-document.addEventListener("DOMContentLoaded", () => {
-  const redTargets = [
-    document.querySelector(".hero h1"),
-    document.querySelector(".hero p"),
-    document.querySelector(".btn.btn-primary"),
-    document.querySelector(".footer h2"),
-    ...document.querySelectorAll(".service-card:nth-child(2) h3"),
-    ...document.querySelectorAll(".service-card:nth-child(2) .price"),
-    ...document.querySelectorAll(".team-member:nth-child(4) h3"),
-    ...document.querySelectorAll(".team-member:nth-child(4) p")
-  ];
-  redTargets.forEach(el => {
-    if (el) el.classList.add("highlight-red");
-  });
 
-  const redBackgrounds = [
-    document.querySelector(".newsletter-form button"),
-    ...document.querySelectorAll(".slider-item:nth-child(2)")
-  ];
-  redBackgrounds.forEach(el => {
-    if (el) el.classList.add("bg-highlight-red");
-  });
+    const redBorders = document.querySelectorAll(".uploads");
+    for (let i = 0; i < redBorders.length; i += 3) {
+        redBorders[i].classList.remove("border-left");
+        redBorders[i].classList.add("border-highlight-red");
+    }
 
-  const redBorders = document.querySelectorAll(".uploads");
-  for (let i = 0; i < redBorders.length; i += 3) {
-    redBorders[i].classList.remove("border-left");
-    redBorders[i].classList.add("border-highlight-red");
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+    // Service carousel controls
     const serviceCarousel = document.querySelector('.service-carousel');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn2 = document.querySelector('.prev-btn');
+    const nextBtn2 = document.querySelector('.next-btn');
+    if (serviceCarousel && prevBtn2 && nextBtn2) {
+        prevBtn2.addEventListener('click', () => {
+            serviceCarousel.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        nextBtn2.addEventListener('click', () => {
+            serviceCarousel.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    }
 
-    prevBtn.addEventListener('click', () => {
-        serviceCarousel.scrollBy({ left: -300, behavior: 'smooth' });
-    });
-
-    nextBtn.addEventListener('click', () => {
-        serviceCarousel.scrollBy({ left: 300, behavior: 'smooth' });
-    });
-});
-// Language Toggle
-function toggleLanguage() {
-  const enContent = document.querySelector('.legal-content');
-  const swContent = document.getElementById('swahili-content');
-  
-  enContent.classList.toggle('hidden');
-  swContent.classList.toggle('hidden');
-  
-  // Update PDF link
-  const pdfBtn = document.querySelector('.btn-pdf');
-  const currentLang = swContent.classList.contains('hidden') ? 'en' : 'sw';
-  pdfBtn.href = `${window.location.pathname.replace('.html','')}-${currentLang}.pdf`;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+    // Terms agreement
     const termsCheckbox = document.getElementById('terms-agreement');
     const termsError = document.getElementById('terms-error');
-
-    termsCheckbox.addEventListener('change', () => {
-        if (termsCheckbox.checked) {
-            termsError.textContent = ''; // Clear error message
-        }
-    });
-
-    // Example: Validate on form submission
-    const form = document.querySelector('form'); // Replace with your form selector
-    form.addEventListener('submit', (e) => {
-        if (!termsCheckbox.checked) {
-            e.preventDefault();
-            termsError.textContent = 'You must agree to the terms and conditions.';
-        }
-    });
-});
-
-function submitDetails(cardIndex) {
-    const kraPin = document.getElementById(`kra-pin-${cardIndex}`).value;
-    const idUpload = document.getElementById(`id-upload-${cardIndex}`).files[0];
-    const contact = document.getElementById(`contact-${cardIndex}`).value;
-
-    if (!kraPin || !idUpload || !contact) {
-        alert('Please fill in all required fields.');
-        return;
-    }
-
-    // Simulate form submission
-    alert('Details submitted successfully!');
-    const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
-    requiredUploads.classList.add('hidden');
-}
-
-function checkPaymentStatus() {
-    // Replace this with actual logic to check if payment is completed
-    return true; // For now, assume payment is always completed
-}
-
-function showRequiredUploads(cardIndex) {
-    const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
-    requiredUploads.classList.remove('hidden');
-}
-
-function submitDetails(cardIndex) {
-    const kraPin = document.getElementById(`kra-pin-${cardIndex}`).value;
-    const idUpload = document.getElementById(`id-upload-${cardIndex}`).files[0];
-    const contact = document.getElementById(`contact-${cardIndex}`).value;
-
-    if (!kraPin || !idUpload || !contact) {
-        alert('Please fill in all required fields.');
-        return;
-    }
-
-    // Create a FormData object to send the details
-    const formData = new FormData();
-    formData.append('kraPin', kraPin);
-    formData.append('idUpload', idUpload);
-    formData.append('contact', contact);
-
-    // Send the details via email
-fetch('https://formspree.io/f/mdkgpdnk', { // Corrected endpoint
-    method: 'POST',
-    body: formData,
-})
-.then(response => {
-    if (response.ok) {
-        alert('Details submitted successfully!');
-        // Optionally hide the container again
-        const requiredUploads = document.querySelector(`.service-card.card-index-${cardIndex} .required-uploads`);
-        requiredUploads.classList.add('hidden');
-    } else {
-        alert('Failed to submit details. Please try again.');
-    }
-})
-.catch(error => {
-    console.error('Error submitting details:', error);
-    alert('An error occurred. Please try again.');
-});
-}
-
-function completePayment(cardIndex) {
-    // Simulate payment completion
-    const paymentCompleted = true; // Replace with actual payment logic
-
-    if (paymentCompleted) {
-        showRequiredUploads(cardIndex);
-        alert('Payment completed! You can now enter your details.');
-    } else {
-        alert('Payment not completed. Please complete the payment first.');
-    }
-}
-
-function initiatePayment(phoneNumber, amount, accountReference, transactionDesc) {
-    fetch('payment.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            phoneNumber: phoneNumber,
-            amount: amount,
-            accountReference: accountReference,
-            transactionDesc: transactionDesc,
-        }),
-    })
-        .then(response => response.text())
-        .then(data => {
-            alert(data); // Display the response from the PHP file
-        })
-        .catch(error => {
-            console.error('Error initiating payment:', error);
-            alert('An error occurred while initiating payment.');
+    const form = document.querySelector('form');
+    if (termsCheckbox && termsError && form) {
+        termsCheckbox.addEventListener('change', () => {
+            if (termsCheckbox.checked) {
+                termsError.textContent = '';
+            }
         });
-}
+        form.addEventListener('submit', (e) => {
+            if (!termsCheckbox.checked) {
+                e.preventDefault();
+                termsError.textContent = 'You must agree to the terms and conditions.';
+            }
+        });
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
+    // Accessibility
     const accessibilityBtn = document.getElementById('accessibility-btn');
     const accessibilityOptions = document.getElementById('accessibility-options');
     const increaseFontBtn = document.getElementById('increase-font');
     const decreaseFontBtn = document.getElementById('decrease-font');
     const toggleContrastBtn = document.getElementById('toggle-contrast');
     const resetSettingsBtn = document.getElementById('reset-settings');
-
-    let fontSize = 16; // Default font size
-
-    // Toggle Accessibility Options
-    accessibilityBtn.addEventListener('click', () => {
-        accessibilityOptions.classList.toggle('hidden');
-    });
-
-    // Increase Font Size
-    increaseFontBtn.addEventListener('click', () => {
-        fontSize += 2;
-        document.body.style.fontSize = `${fontSize}px`;
-    });
-
-    // Decrease Font Size
-    decreaseFontBtn.addEventListener('click', () => {
-        if (fontSize > 12) {
-            fontSize -= 2;
+    let fontSize = 16;
+    if (accessibilityBtn && accessibilityOptions) {
+        accessibilityBtn.addEventListener('click', () => {
+            accessibilityOptions.classList.toggle('hidden');
+        });
+    }
+    if (increaseFontBtn) {
+        increaseFontBtn.addEventListener('click', () => {
+            fontSize += 2;
             document.body.style.fontSize = `${fontSize}px`;
-        }
-    });
-
-    // Toggle High Contrast Mode
-    toggleContrastBtn.addEventListener('click', () => {
-        document.body.classList.toggle('high-contrast');
-    });
-
-    // Reset Accessibility Settings
-    resetSettingsBtn.addEventListener('click', () => {
-        fontSize = 16;
-        document.body.style.fontSize = '';
-        document.body.classList.remove('high-contrast');
-    });
-});
-
-function toggleUploadsContainer() {
-    const uploadsContainer = document.getElementById('uploads-container');
-    uploadsContainer.classList.toggle('hidden');
-}
-
-document.getElementById('uploads-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const kraPin = document.getElementById('kra-pin').value;
-    const idUpload = document.getElementById('id-upload').files[0];
-    const contact = document.getElementById('contact').value;
-
-    if (!kraPin || !idUpload || !contact) {
-        alert('Please fill in all required fields.');
-        return;
+        });
+    }
+    if (decreaseFontBtn) {
+        decreaseFontBtn.addEventListener('click', () => {
+            if (fontSize > 12) {
+                fontSize -= 2;
+                document.body.style.fontSize = `${fontSize}px`;
+            }
+        });
+    }
+    if (toggleContrastBtn) {
+        toggleContrastBtn.addEventListener('click', () => {
+            document.body.classList.toggle('high-contrast');
+        });
+    }
+    if (resetSettingsBtn) {
+        resetSettingsBtn.addEventListener('click', () => {
+            fontSize = 16;
+            document.body.style.fontSize = '';
+            document.body.classList.remove('high-contrast');
+        });
     }
 
-    // Simulate form submission
-    alert('Documents submitted successfully!');
-    document.getElementById('uploads-container').classList.add('hidden'); // Hide the container after submission
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Redirect to Home Functionality
+    // Back to home
     const backToHomeBtn = document.getElementById('back-to-home-btn');
     if (backToHomeBtn) {
         backToHomeBtn.addEventListener('click', redirectToHome);
     }
 
-    // Form submission handler for uploads-container
-    const uploadForm = document.querySelector('#uploads-container form');
-    if (uploadForm) {
-        uploadForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Documents submitted successfully!');
-                    document.getElementById('uploads-container').classList.add('hidden');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was a problem submitting your documents. Please try again.');
-            });
-        });
-    }
-});
-
-function redirectToHome() {
-    window.location.href = '#hero'; // Scroll to the hero section
-}
-
-document.addEventListener('DOMContentLoaded', function() {
+    // Service type highlight
     const serviceType = document.getElementById('service-type');
     if (serviceType) {
         serviceType.addEventListener('change', function() {
-            // Remove previous highlights
             Array.from(serviceType.options).forEach(option => {
                 option.classList.remove('selected-option');
             });
-            // Highlight selected options
             Array.from(serviceType.selectedOptions).forEach(option => {
                 option.classList.add('selected-option');
             });
         });
     }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    const serviceType = document.getElementById('service-type');
-    const serviceTypeContainer = document.getElementById('service-type-container');
-    if (serviceType) {
-        serviceType.addEventListener('change', function() {
-            // Highlight selected options
-            Array.from(serviceType.options).forEach(option => {
-                option.classList.remove('selected-option');
-            });
-            
-            const selectedOption = serviceType.options[serviceType.selectedIndex];
-            selectedOption.classList.add('selected-option');
-
-            // Update container with selected option but keep dropdown visible
-            if (serviceTypeContainer && selectedOption) {
-                serviceTypeContainer.innerHTML = `
-                    <div class="selected-display">
-                        <span>Selected: ${selectedOption.text}</span>
-                    </div>
-                `;
-            }
-        });
-    }
-});
-
-// Add this to your existing script.js
-document.addEventListener('DOMContentLoaded', function() {
+    // Lazy loading images
     if ('loading' in HTMLImageElement.prototype) {
         const images = document.querySelectorAll('img[loading="lazy"]');
         images.forEach(img => {
-            img.src = img.dataset.src;
+            if (img.dataset.src) img.src = img.dataset.src;
         });
     } else {
-        // Fallback for browsers that don't support lazy loading
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
         document.body.appendChild(script);
     }
+
+   
 });
-
-document.getElementById('uploads-container').addEventListener('submit', async function (e) {
-  e.preventDefault();
-  const form = e.target;
-
-  // Get form data
-  const serviceType = form.service_type.value;
-  const serviceDescription = form.service_description.value;
-  const kraPin = form.kra_pin.value;
-  const idUpload = form.id_upload.files[0];
-  const otherDocuments = form.other_documents.files[0];
-
-  try {
-    // Upload ID document to Supabase Storage
-    const idFilePath = `${Date.now()}_${idUpload.name}`;
-    const { data: idUploadData, error: idUploadError } = await supabase.storage
-      .from('uploads')
-      .upload(idFilePath, idUpload);
-
-    if (idUploadError) {
-      console.error('ID upload error:', idUploadError);
-      alert('Failed to upload ID document. Please try again.');
-      return;
-    }
-
-    // Upload other documents (if provided) to Supabase Storage
-    let otherFilePath = null;
-    if (otherDocuments) {
-      otherFilePath = `${Date.now()}_${otherDocuments.name}`;
-      const { data: otherUploadData, error: otherUploadError } = await supabase.storage
-        .from('uploads')
-        .upload(otherFilePath, otherDocuments);
-
-      if (otherUploadError) {
-        console.error('Other document upload error:', otherUploadError);
-        alert('Failed to upload additional documents. Please try again.');
-        return;
-      }
-    }
-
-    // Insert form data into Supabase database
-    const { data, error } = await supabase
-      .from('submissions')
-      .insert([
-        {
-          service_type: serviceType,
-          service_description: serviceDescription,
-          kra_pin: kraPin,
-          contact: contact,
-          id_upload_path: idUploadData.path,
-          other_documents_path: otherFilePath,
-        },
-      ]);
-
-    if (error) {
-      console.error('Database insert error:', error);
-      alert('Failed to save your submission. Please try again.');
-    } else {
-      alert('Submission successful!');
-      form.reset();
-      document.getElementById('uploads-container').classList.add('hidden');
-    }
-  } catch (err) {
-    console.error('Unexpected error:', err);
-    alert('An unexpected error occurred. Please try again.');
+// Add these Netlify form enhancements:
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('form-submitted') === 'uploads') {
+    showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
+    const uploadsContainer = document.getElementById('uploads-container');
+    if (uploadsContainer) uploadsContainer.classList.add('hidden');
+    history.replaceState(null, '', window.location.pathname);
   }
 });
 
-document.getElementById('uploads-container').addEventListener('submit', async function (e) {
-  e.preventDefault();
-  const form = e.target;
-
-  // Get form data
-  const serviceType = form.service_type.value;
-  const serviceDescription = form.service_description.value;
-  const kraPin = form.kra_pin.value;
-  const idUpload = form.id_upload.files[0];
-
-  try {
-    // Upload file to Supabase Storage
-    const idFilePath = `${Date.now()}_${idUpload.name}`;
-    const { data: idUploadData, error: idUploadError } = await supabase.storage
-      .from('uploads')
-      .upload(idFilePath, idUpload);
-
-    if (idUploadError) {
-      console.error('File upload error:', idUploadError);
-      alert('Failed to upload file.');
-      return;
-    }
-
-    // Insert form data into Supabase Database
-    const { data, error } = await supabase
-      .from('submissions')
-      .insert([
-        {
-          service_type: serviceType,
-          service_description: serviceDescription,
-          kra_pin: kraPin,
-          id_upload_path: idUploadData.path,
-        },
-      ]);
-
-    if (error) {
-      console.error('Database insert error:', error);
-      alert('Failed to save submission.');
-    } else {
-      alert('Submission successful!');
-      form.reset();
-    }
-  } catch (err) {
-    console.error('Unexpected error:', err);
-    alert('An unexpected error occurred.');
-  }
-});
-
-// Initialize Supabase client
-const supabase = createClient(
-  'https://jnwoqedjzdbvgrpxmoix.supabase.co', // Supabase Database URL
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impud29xZWRqemRidmdycHhtb2l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcyMDczMjUsImV4cCI6MjA2Mjc4MzMyNX0.QQF9L_uVRYmjEVw5UauNfGbv2LaGK-Luww3ZdrdAcBw' // Supabase Anonymous Key
-);
-
-// Example usage (optional)
-console.log('Supabase client initialized:', supabase);
+// New Toast Notification System
+function showToast(message, type = 'info') {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => toast.remove(), 5000);
+}
