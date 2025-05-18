@@ -1429,7 +1429,7 @@ justify-content: center;
 /* Upload Documents Button */
 .upload-documents-container {
   text-align: center;
-  margin: 20px 0;
+  margin: 40px auto;
 }
 
 .upload-documents-container .btn {

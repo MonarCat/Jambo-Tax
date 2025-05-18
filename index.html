@@ -255,7 +255,7 @@
     </section>
     <section id="confirmation" class="section hidden">
         <h2>Thank You!</h2>
-        <p>We noticed you attempted paying for services, please proceed with manual payment.<br> Kindly upload required documents and details, ignore if not necessary.</p>
+        <p>We noticed you completed payment, please proceed with manual payment if not yet paid.<br> Kindly upload required documents and details, ignore if not necessary.</p>
         <p>If you have any questions or need assistance, feel free to contact us at <a href="mailto:support@jambotax.co.ke" class="text-link">support@jambotax.co.ke</a>.</p>
         <button id="back-to-home-btn" class="btn btn-primary" onclick="redirectToHome()">Back to Home</button>
     </section>
@@ -265,53 +265,61 @@
             document.getElementById('confirmation').classList.remove('hidden');
         });
     </script>
-    <section id="upload-documents" class="section upload-section">
-        <h2>Upload Your Documents</h2>
-        <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
-        <div class="upload-documents-container"></div>
-        <button id="upload-documents-btn" class="btn btn-primary" class="btn btn-primary">Upload Documents Here</button>
-    </div>
-    </section>
+            <section id="upload-documents" class="section upload-section">
+                <div class="max-w-5xl mx-auto text-center px-4">
+                    <h2>Upload Your Documents</h2>
+                    <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
+                    <div class="upload-documents-container my-6">
+                    <button id="upload-documents-btn" class="btn btn-primary">Upload Documents Here</button>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Compact Uploads Container -->
-    <div id="uploads-container" class="uploads-container hidden">
-        <h3>Upload Required Documents</h3>
-        <form id="my-form" method="POST" enctype="multipart/form-data" data-netlify="true">
-            <input type="hidden" name="action" value="?form-submitted=uploads">
-            <div class="form-group">
-                <label for="service-type">Service Type</label>
-                <select id="service-type" name="service_type" multiple required aria-label="Select service types">
-                    <option value="individual-tax-filing">Individual Tax Filing</option>
-                    <option value="business-tax-filing">Business Tax Filing</option>
-                    <option value="tax-consultancy">Tax Consultancy</option>
-                    <option value="employee-background-checks">Employee Background Checks</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="service-description">Service Description</label>
-                <input type="text" id="service-description" name="service_description" placeholder="Tell us what you want done:" required>
-            </div>
-            <div class="form-group">
-                <label for="kra-pin">KRA PIN No.</label>
-                <input type="text" id="kra-pin" name="kra_pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required>
-            </div>
-            <div class="form-group">
-                <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
-                <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png" required>
-            </div>
-            <div class="form-group">
-                <label for="other-documents">Other Document(s):</label>
-                <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png">
-            </div>
-            <div class="form-group">
-                <label for="contact">Email/WhatsApp No.:</label>
-                <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
-            </div>
-            <button type="submit" class="btn btn-secondary">Submit Documents</button>
-        </form>
+<!-- Compact Uploads Container -->
+<div id="uploads-container" class="uploads-container hidden max-w-5xl mx-auto px-4">
+  <h3 class="text-center">Upload Required Documents</h3>
+  <form id="my-form" method="POST" enctype="multipart/form-data" data-netlify="true">
+    <input type="hidden" name="action" value="?form-submitted=uploads">
+
+    <div class="form-group">
+      <label for="service-type">Service Type</label>
+      <select id="service-type" name="service_type" multiple required aria-label="Select service types">
+        <option value="individual-tax-filing">Individual Tax Filing</option>
+        <option value="business-tax-filing">Business Tax Filing</option>
+        <option value="tax-consultancy">Tax Consultancy</option>
+        <option value="employee-background-checks">Employee Background Checks</option>
+        <option value="other">Other</option>
+      </select>
     </div>
-</section>
+
+    <div class="form-group">
+      <label for="service-description">Service Description</label>
+      <input type="text" id="service-description" name="service_description" placeholder="Tell us what you want done:" required>
+    </div>
+
+    <div class="form-group">
+      <label for="kra-pin">KRA PIN No.</label>
+      <input type="text" id="kra-pin" name="kra_pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required>
+    </div>
+
+    <div class="form-group">
+      <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
+      <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png" required>
+    </div>
+
+    <div class="form-group">
+      <label for="other-documents">Other Document(s):</label>
+      <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png">
+    </div>
+
+    <div class="form-group">
+      <label for="contact">Email/WhatsApp No.:</label>
+      <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Submit Documents</button>
+  </form>
+</div>
 
     <section id="calculator" class="section calc-section">
         <h2>Estimate Your Income Tax</h2>
