@@ -663,13 +663,7 @@ select#payment-method {
   min-height: 1.5em; /* Prevent layout shift */
 }
 
-/* Team and Blog Sections */
-.team-gradient {
-  background: linear-gradient(135deg, var(--light-bg-color) 0%, var(--bg-color) 100%);
-}
-.blog-gradient {
-  background: linear-gradient(135deg, var(--bg-color) 0%, var(--light-bg-color) 100%);
-}
+
 
 /* Slider Styles */
 .slider-container {
@@ -710,35 +704,6 @@ select#payment-method {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* Slider Item Content (Team & Blog) */
-.team-member img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-}
-.team-member h3, .blog-post h3 {
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-}
-.team-member p, .blog-post p {
-  color: #555;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  flex-grow: 1; /* Push author/button down */
-}
-.author {
-  font-size: 0.9rem;
-  color: #777;
-  margin-top: 1rem;
-  font-style: italic;
-}
-.blog-post .btn {
-  margin-top: auto; /* Push button to bottom */
-  align-self: center;
-}
 
 /* Slider Navigation Buttons */
 .slider-btn {
@@ -1154,43 +1119,7 @@ select#payment-method {
     opacity: 1;
   }
 }
-/* Team Slider Styles */
-.team-slider {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 2rem;
-  padding: 2rem 0.5rem;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-.team-slider::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for WebKit browsers */
-}
-.team-slider .slider-item {
-  flex: 0 0 clamp(280px, 80vw, 320px);
-  background: var(--bg-color);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px var(--shadow-color);
-  scroll-snap-align: start;
-  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.team-slider .slider-item img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-}
-.team-slider .slider-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-}
+
 /* Add to style.css */
 .btn-pdf {
   background: #BB133E;

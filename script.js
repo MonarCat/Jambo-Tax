@@ -244,20 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 
-    // Slider Animation
-    const teamSlider = document.querySelector('.team-slider');
-    const blogSlider = document.querySelector('.blog-slider');
-    [teamSlider, blogSlider].forEach(slider => {
-        if (slider) {
-            setInterval(() => {
-                if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth) {
-                    slider.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    slider.scrollBy({ left: 320, behavior: 'smooth' });
-                }
-            }, 6000);
-        }
-    });
+    
 
     // Smooth scroll for all links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

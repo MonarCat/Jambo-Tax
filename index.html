@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="preload" as="image" href="images/Jambo Tax logo  dark theme.png">
-<link rel="preload" as="image" href="images/Professional female executive.jpg">
-<link rel="preload" as="image" href="images/johnny-cardoso-wjt7O8WKreQ-unsplash.jpg">
-<link rel="preload" as="image" href="images/Professional lady.jpg">
-<link rel="preload" as="image" href="images/Jambo Tax Developer.png">
+
     <script async src="https://static.whatsapp.net/connect.js"></script>
 </head>
 <body>
@@ -55,7 +52,6 @@
                     <li><a href="#hero" class="nav-link active">Home</a></li>
                     <li><a href="#services" class="nav-link">Services</a></li>
                     <li><a href="#calculator" class="nav-link">Calculator</a></li>
-                    <li><a href="#our-team" class="nav-link">Team</a></li>
                     <li class="dropdown">
                         <a href="#resources" class="nav-link">Resources <i class="fas fa-chevron-down dropdown-icon"></i></a>
                         <div class="dropdown-content">
@@ -66,7 +62,6 @@
                             <a href="https://www.treasury.go.ke" target="_blank" rel="noopener">National Treasury</a>
                         </div>
                     </li>
-                    <li><a href="#news-updates" class="nav-link">Updates</a></li>
                     <li><a href="#compliance" class="nav-link">Compliance</a></li>
                     <li><a href="#footer" class="nav-link">Contact</a></li>
                 </ul>
@@ -202,18 +197,7 @@
         </div>
         <button class="btn back-btn" onclick="hideAllMiniServices()">Back to Services</button>
     </section>
-    <!-- Add to payment section -->
-<div class="terms-agreement">
-    <label class="checkbox-container">
-        <input type="checkbox" id="terms-agreement" required>
-        <span class="checkmark"></span>
-        <span>
-            I agree to the <a href="policies/Terms and Conditions.html" target="_blank">Terms & Conditions</a>
-            and <a href="Privacy Policy.html" target="_blank">Privacy Policy</a>
-        </span>
-    </label>
-    <div id="terms-error" class="error-message" aria-live="polite"></div>
-</div>
+
     <section id="payment" class="section hidden">
         <h2>Complete Your Order</h2>
         <div class="order-summary">
@@ -255,10 +239,23 @@
                 </button>
             </div>
         </div>
+                    <!-- Add to payment section -->
+            <div class="terms-agreement">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="terms-agreement" required>
+                    <span class="checkmark"></span>
+                    <span>
+                        I agree to the <a href="policies/Terms and Conditions.html" target="_blank">Terms & Conditions</a>
+                        and <a href="Privacy Policy.html" target="_blank">Privacy Policy</a>
+                    </span>
+                </label>
+                <div id="terms-error" class="error-message" aria-live="polite"></div>
+            </div>
+        <button id="confirm-payment-btn" class="btn btn-primary" onclick="confirmPayment()">Confirm Payment</button>
     </section>
     <section id="confirmation" class="section hidden">
         <h2>Thank You!</h2>
-        <p>Your payment has been successfully received. You will receive a confirmation email shortly. Our team is now processing your request and will deliver your tax filing(s) within 6 hours.</p>
+        <p>We noticed you attempted paying for services, please proceed with manual payment.<br> Kindly upload required documents and details, ignore if not necessary.</p>
         <p>If you have any questions or need assistance, feel free to contact us at <a href="mailto:support@jambotax.co.ke" class="text-link">support@jambotax.co.ke</a>.</p>
         <button id="back-to-home-btn" class="btn btn-primary" onclick="redirectToHome()">Back to Home</button>
     </section>
@@ -328,100 +325,10 @@
         <p id="result" class="calculator-result" aria-live="polite"></p>
     </section>
 
-    <section id="our-team" class="section team-gradient">
-        <h2>Our Team</h2>
-        <div class="slider-container">
-            <div class="team-slider slider">
-                <div class="team-member slider-item">
-                     <img src="images/Professional female executive.jpg" alt="Team Member Jane Doe" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    <h3>Jane Doe</h3>
-                    <p>Lead Tax Advisor</p>
-                    <p>"Welcome to Jambo Tax – your trusted tax partner!"</p>
-                </div>
-                <div class="team-member slider-item">
-                     <img src="images/johnny-cardoso-wjt7O8WKreQ-unsplash.jpg" alt="Team Member John Mwangi" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    <h3>John Mwangi</h3>
-                    <p>Senior Auditor</p>
-                    <p>"Ensuring compliance with every return."</p>
-                </div>
-                <div class="team-member slider-item">
-                     <img src="images/Professional lady.jpg" alt="Team Member Sarah Johnson" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    <h3>Sarah Johnson</h3>
-                    <p>Tax Consultant</p>
-                    <p>"Helping you maximize deductions and minimize liabilities."</p>
-                </div>
-                <div class="team-member slider-item">
-                     <img src="images/Jambo Tax Developer.png" alt="Team Member David Kimani" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    <h3>David Kimani</h3>
-                    <p>Compliance Officer</p>
-                    <p>"Keeping your filings up-to-date with KRA regulations."</p>
-                </div>
-                <div class="team-member slider-item">
-                     <img src="images/Jambo Tax logo  dark theme.png" alt="Team Member Mary Wambui" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    <h3>Mary Wambui</h3>
-                    <p>Client Relations Manager</p>
-                    <p>"Your satisfaction is our priority!"</p>
-                </div> 
-                <div class="team-member slider-item">
-                     <img src="images/Jambo Tax logo  dark theme.png" alt="Team Member Peter Otieno" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Error'; this.onerror=null;">
-                    <h3>Peter Otieno</h3>
-                    <p>Data Analyst</p>
-                    <p>"Transforming data into actionable insights."</p>
-                </div>
-            <button class="slider-btn prev-btn" aria-label="Previous team member"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next-btn" aria-label="Next team member"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
-
-    <section id="news-updates" class="section">
-        <h2>News & Updates</h2>
-        <p class="section-subtitle">Stay updated with the latest news and articles.</p>
-        <div class="slider-container">
-            <div class="slider blog-slider">
-                <div class="slider-item slider-item-height">
-                    <img src="images/tax-tips.jpg" alt="5 Tax Tips to Save Money in 2023" class="article-image">
-                    <h3><a href="articles/article1.html" target="_blank">5 Tax Tips to Save Money in 2023</a></h3>
-                    <p>Discover practical ways to reduce your tax liability and keep more of your hard-earned money.</p>
-                    <a href="articles/article1.html" class="read-more" target="_blank">Read More</a>
-                </div>
-                <div class="slider-item">
-                    <img src="images/kenyan-economy.jpg" alt="How the Kenyan Economy is Adapting to Global Trends" class="article-image">
-                    <h3><a href="articles/article2.html" target="_blank">How the Kenyan Economy is Adapting to Global Trends</a></h3>
-                    <p>Explore how Kenya is navigating global economic challenges and opportunities.</p>
-                    <a href="articles/article2.html" class="read-more" target="_blank">Read More</a>
-                </div>
-                <div class="slider-item slider-item-height">
-                    <img src="images/pexels-sithumrulzs-10923112.jpg" alt="Understanding the New Tax Regulations in Kenya" class="article-image">
-                    <h3><a href="articles/article3.html" target="_blank">Understanding the New Tax Regulations in Kenya</a></h3>
-                    <p>A breakdown of the latest tax changes and what they mean for individuals and businesses.</p>
-                    <a href="articles/article3.html" class="read-more" target="_blank">Read More</a>
-                </div>
-                <div class="slider-item fixed-height">
-                    <img src="images/kenyan-economy-coins.jpg" alt="Top 10 Financial Mistakes to Avoid in 2023" class="article-image">
-                    <h3><a href="articles/article4.html" target="_blank">Top 10 Financial Mistakes to Avoid in 2023</a></h3>
-                    <p>Learn from common financial pitfalls and make smarter money decisions this year.</p>
-                    <a href="articles/article4.html" class="read-more" target="_blank">Read More</a>
-                </div>
-                <div class="slider-item fixed-height">
-                    <img src="images/inflation.jpg" alt="The Impact of Inflation on Kenyan Households" class="article-image">
-                    <h3><a href="articles/article5.html" target="_blank">The Impact of Inflation on Kenyan Households</a></h3>
-                    <p>Understand how rising prices are affecting everyday life and what you can do to cope.</p>
-                    <a href="articles/article5.html" class="read-more" target="_blank">Read More</a>
-                </div>
-                <div class="slider-item fixed-height">
-                    <img src="images/financial-planning.jpeg" alt="Financial Planning Strategies for 2023" class="article-image">
-                    <h3><a  href="articles/article6.html" target="_blank">Financial Planning Strategies for 2023</a></h3>
-                    <p>Get tips on budgeting, saving, and investing to secure your financial future.</p>
-                    <a href="articles/article6.html" class="read-more" target="_blank">Read More</a>
-                </div>
-            </div>
-        </div>
-    
-
     <section id="compliance" class="section">
         <h2>Compliance & Privacy</h2>
         <p>We strictly adhere to KRA regulations and the Kenyan Data Protection Act (DPA). Your data is encrypted and stored securely.</p>
-        <p>Read our <a href="Privacy Policy.html" class="text-link">Privacy Policy</a> and <a href="policiess/Terms and Conditions.html" class="text-link">Terms & Conditions</a>.</p> We also use Cookies <p class="cookie-policy"><a href="policies/Cookie Policy.html" class="text-link">Cookie Policy</a></p>
+        <p>Read our <a href="Privacy Policy.html" class="text-link">Privacy Policy</a> and <a href="policies/Terms and Conditions.html" class="text-link">Terms & Conditions</a>.</p> We also use Cookies <p class="cookie-policy"><a href="policies/Cookie Policy.html" class="text-link">Cookie Policy</a></p>
     </section>
 
     <footer class="footer" id="footer">
@@ -479,7 +386,7 @@
         <p class="disclaimer">Disclaimer: Jambo Tax is not affiliated with the Kenya Revenue Authority (KRA). All tax filings are done in compliance with KRA regulations.</p>
         
         
-        <p>Managed by Afams Ltd(Enterprises)</p>
+        <p>Designed by <a href="https://www.mikaju.com" target="_blank">Mikaju</a></p>
         <!-- Add the "Top" button -->
         <div class="footer-content">
             <button id="top-button" class="top-btn" aria-label="Scroll to Top">↑</button>
