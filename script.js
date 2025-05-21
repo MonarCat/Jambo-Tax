@@ -229,17 +229,7 @@ if (topButton) {
         uploadBtn.addEventListener('click', toggleUploadsContainer);
     }
 
-    // Uploads form
-    const uploadsForm = document.getElementById('my-form');
-    if (uploadsForm) {
-        uploadsForm.addEventListener('submit', function(e) {
-            const uploadsContainer = document.getElementById('uploads-container');
-            if (uploadsContainer) uploadsContainer.classList.add('hidden');
-            showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
-        });
-    }
-
-
+ 
     // Copyright year
     const yearEl = document.getElementById('current-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -545,65 +535,70 @@ async function handleFormSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
-    const progressBar = document.querySelector('.progress-bar');
-    const progressText = document.querySelector('.progress-text');
-    const progressPercentage = document.querySelector('#progress-percentage');
     const uploadProgress = document.querySelector('.upload-progress');
     
-    // Show progress bar
-    uploadProgress.classList.remove('hidden');
-    
+    // Show progress bar if it exists
+    if (uploadProgress) uploadProgress.classList.remove('hidden');
+
     try {
-        // Process files (compress images)
-        const idUpload = document.getElementById('id-upload').files[0];
-        const otherDocs = document.getElementById('other-documents').files;
-        
-        if (idUpload) {
-            const compressedFile = await compressFile(idUpload);
-            formData.set('id_upload', compressedFile);
-        }
-        
-        if (otherDocs && otherDocs.length > 0) {
-            for (let i = 0; i < otherDocs.length; i++) {
-                const compressedFile = await compressFile(otherDocs[i]);
-                formData.append('other_documents', compressedFile);
-            }
-        }
-        
         // Submit form with XMLHttpRequest to track progress
         const xhr = new XMLHttpRequest();
         xhr.open('POST', form.action, true);
         
-        xhr.upload.onprogress = (e) => {
-            if (e.lengthComputable) {
-                const percentComplete = Math.round((e.loaded / e.total) * 100);
-                progressBar.style.width = percentComplete + '%';
-                progressPercentage.textContent = percentComplete + '%';
-            }
-        };
+        // For text-only forms, we can skip the progress tracking
+        // or show a simple loading state
+        if (uploadProgress) {
+            // Simulate progress for text form submission
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 20;
+                const progressBar = document.querySelector('.progress-bar');
+                const progressPercentage = document.querySelector('#progress-percentage');
+                if (progressBar) progressBar.style.width = `${progress}%`;
+                if (progressPercentage) progressPercentage.textContent = `${progress}%`;
+                if (progress >= 100) clearInterval(interval);
+            }, 200);
+        }
         
         xhr.onload = () => {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
-                form.reset();
-                document.getElementById('uploads-container').classList.add('hidden');
-            } else {
-                showToast('Upload failed. Please try again.', 'error');
+            if (uploadProgress) uploadProgress.classList.add('hidden');
+            
+            try {
+                // Try to parse the response as JSON
+                const response = JSON.parse(xhr.responseText);
+                
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    showToast(response.message || 'Form submitted successfully!', 'success');
+                    form.reset();
+                    const uploadsContainer = document.getElementById('uploads-container');
+                    if (uploadsContainer) uploadsContainer.classList.add('hidden');
+                } else {
+                    showToast(response.error || 'Submission failed. Please try again.', 'error');
+                }
+            } catch (e) {
+                // If response isn't JSON, check the status code
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    showToast('Form submitted successfully!', 'success');
+                    form.reset();
+                    const uploadsContainer = document.getElementById('uploads-container');
+                    if (uploadsContainer) uploadsContainer.classList.add('hidden');
+                } else {
+                    showToast('Submission failed. Please try again.', 'error');
+                }
             }
-            uploadProgress.classList.add('hidden');
         };
         
         xhr.onerror = () => {
-            showToast('An error occurred during upload. Please try again.', 'error');
-            uploadProgress.classList.add('hidden');
+            if (uploadProgress) uploadProgress.classList.add('hidden');
+            showToast('An error occurred. Please try again.', 'error');
         };
         
         xhr.send(formData);
         
     } catch (error) {
         console.error('Error:', error);
+        if (uploadProgress) uploadProgress.classList.add('hidden');
         showToast('An error occurred. Please try again.', 'error');
-        uploadProgress.classList.add('hidden');
     }
 }
 
