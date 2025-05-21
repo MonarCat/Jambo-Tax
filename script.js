@@ -196,20 +196,25 @@ window.copyToClipboard = copyToClipboard;
 
 // Combined DOMContentLoaded listeners and wrapped all DOM queries in checks
 document.addEventListener('DOMContentLoaded', () => {
-    // Top button
-    const topButton = document.getElementById('top-button');
-    if (topButton) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                topButton.classList.add('visible');
-            } else {
-                topButton.classList.remove('visible');
-            }
-        });
-        topButton.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+   // Top Button Logic - Fixed
+const topButton = document.getElementById('top-button');
+if (topButton) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      topButton.classList.add('visible');
+    } else {
+      topButton.classList.remove('visible');
     }
+  });
+
+  topButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
     // Service card buttons
     document.querySelectorAll('.service-card button').forEach(button => {
         button.addEventListener('click', function() {
@@ -431,23 +436,151 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
 });
-// Add these Netlify form enhancements:
-document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('form-submitted') === 'uploads') {
-    showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
-    const uploadsContainer = document.getElementById('uploads-container');
-    if (uploadsContainer) uploadsContainer.classList.add('hidden');
-    history.replaceState(null, '', window.location.pathname);
-  }
-});
-
-// New Toast Notification System
+// Enhanced Toast Notification
 function showToast(message, type = 'info') {
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => toast.remove(), 5000);
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+    
+    // Allow manual dismiss
+    toast.addEventListener('click', () => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+    });
 }
+// Enhanced FAQ Toggle
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        const answer = button.nextElementSibling;
+        button.classList.toggle('active');
+        answer.classList.toggle('active');
+    });
+});
+// File compression function
+async function compressFile(file, { quality = 0.8, maxWidth = 1024, maxHeight = 1024 } = {}) {
+    if (!file.type.match('image.*')) return file; // Skip non-image files
+    
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                
+                // Calculate new dimensions while maintaining aspect ratio
+                if (width > maxWidth || height > maxHeight) {
+                    const ratio = Math.min(maxWidth / width, maxHeight / height);
+                    width = Math.floor(width * ratio);
+                    height = Math.floor(height * ratio);
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                canvas.toBlob((blob) => {
+                    resolve(new File([blob], file.name, {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    }));
+                }, 'image/jpeg', quality);
+            };
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+// Form submission handler
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const progressBar = document.querySelector('.progress-bar');
+    const progressText = document.querySelector('.progress-text');
+    const progressPercentage = document.querySelector('#progress-percentage');
+    const uploadProgress = document.querySelector('.upload-progress');
+    
+    // Show progress bar
+    uploadProgress.classList.remove('hidden');
+    
+    try {
+        // Process files (compress images)
+        const idUpload = document.getElementById('id-upload').files[0];
+        const otherDocs = document.getElementById('other-documents').files;
+        
+        if (idUpload) {
+            const compressedFile = await compressFile(idUpload);
+            formData.set('id_upload', compressedFile);
+        }
+        
+        if (otherDocs && otherDocs.length > 0) {
+            for (let i = 0; i < otherDocs.length; i++) {
+                const compressedFile = await compressFile(otherDocs[i]);
+                formData.append('other_documents', compressedFile);
+            }
+        }
+        
+        // Submit form with XMLHttpRequest to track progress
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+        
+        xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+                const percentComplete = Math.round((e.loaded / e.total) * 100);
+                progressBar.style.width = percentComplete + '%';
+                progressPercentage.textContent = percentComplete + '%';
+            }
+        };
+        
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                showToast('Documents uploaded successfully! Our team will contact you shortly.', 'success');
+                form.reset();
+                document.getElementById('uploads-container').classList.add('hidden');
+            } else {
+                showToast('Upload failed. Please try again.', 'error');
+            }
+            uploadProgress.classList.add('hidden');
+        };
+        
+        xhr.onerror = () => {
+            showToast('An error occurred during upload. Please try again.', 'error');
+            uploadProgress.classList.add('hidden');
+        };
+        
+        xhr.send(formData);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('An error occurred. Please try again.', 'error');
+        uploadProgress.classList.add('hidden');
+    }
+}
+
+// Update the form event listener in your DOMContentLoaded section
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing code ...
+    
+    const uploadsForm = document.getElementById('my-form');
+    if (uploadsForm) {
+        uploadsForm.addEventListener('submit', handleFormSubmit);
+    }
+    
+    // ... rest of your existing code ...
+});

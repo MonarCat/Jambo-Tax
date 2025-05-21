@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jambo Tax – Simplifying Tax Filing for Kenyans</title>
+    <meta name="description" content="Jambo Tax offers professional tax filing services for individuals and businesses in Kenya. Jambo Tax makes tax easy.">
+    <meta name="keywords" content="Kenya tax filing, Jambotax.co.ke, file paye online, ITR,  KRA returns, File P9 form, Simplified Tax services in Kenya, KRA compliance, Jambo Tax">
+    <meta name="author" content="Jambo Tax">
+    <meta property="og:title" content="Jambo Tax - Simplifying Tax Filing in Kenya">
+    <meta property="og:description" content="Affordable and professional tax filing services for individuals and businesses in Kenya.">
+    <meta property="og:image" content="images/Jambo-Tax-logo-dark-theme.webp">
+    <meta property="og:url" content="https://jambotax.co.ke">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="icon" href="images/Jambo Tax logo  dark theme.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -153,10 +163,16 @@
         <h2>Business Tax Filing Services</h2>
         <div class="mini-service-cards">
             <div class="mini-card">
-                <h3>Small Business Filing</h3>
-                <p>For sole proprietors and small businesses.</p>
-                <p class="price">KSh 599</p>
-                <button class="btn btn-primary" onclick="orderService('Small Business Filing', 599)">Order Now</button>
+                <h3>Groups; Self-Help &C.B.Os</h3>
+                <p>KRA PIN Registration, Tax Filing, Returns e.t.c,</p>
+                <p class="price">KSh 499</p>
+                <button class="btn btn-primary" onclick="orderService('Groups; Self-Help &C.B.Os', 499)">Order Now</button>
+            </div>
+            <div class="mini-card">
+                <h3>Small Business Filing(MSMEs)</h3>
+                <p>For sole proprietors, Partneships & StartUps.</p>
+                <p class="price">KSh 699</p>
+                <button class="btn btn-primary" onclick="orderService('Small Business Filing', 699)">Order Now</button>
             </div>
             <div class="mini-card">
                 <h3>Corporate Tax Returns</h3>
@@ -180,7 +196,7 @@
             <div class="mini-card">
                 <h3>One-time Consultation</h3>
                 <p>1-hour consultation for specific tax questions.</p>
-                <p class="price">KSh 2,500</p> <button class="btn btn-primary" onclick="orderService('One-time Consultation', 2500)">Order Now</button>
+                <p class="price">KSh 1,000</p> <button class="btn btn-primary" onclick="orderService('One-time Consultation', 2500)">Order Now</button>
             </div>
             <div class="mini-card">
                 <h3>Tax Audit Support</h3>
@@ -256,7 +272,7 @@
     <section id="confirmation" class="section hidden">
         <h2>Thank You!</h2>
         <p>We noticed you completed payment, please proceed with manual payment if not yet paid.<br> Kindly upload required documents and details, ignore if not necessary.</p>
-        <p>If you have any questions or need assistance, feel free to contact us at <a href="mailto:support@jambotax.co.ke" class="text-link">support@jambotax.co.ke</a>.</p>
+        <p>Use the Chat button for quick assistance, also feel free to contact us at <a href="mailto:support@jambotax.co.ke" class="text-link">support@jambotax.co.ke</a>.</p>
         <button id="back-to-home-btn" class="btn btn-primary" onclick="redirectToHome()">Back to Home</button>
     </section>
     <script>
@@ -265,60 +281,72 @@
             document.getElementById('confirmation').classList.remove('hidden');
         });
     </script>
-            <section id="upload-documents" class="section upload-section">
-                <div class="max-w-5xl mx-auto text-center px-4">
-                    <h2>Upload Your Documents</h2>
-                    <p class="section-subtitle">Easily upload the required documents for your selected service.</p>
-                    <div class="upload-documents-container my-6">
-                    <button id="upload-documents-btn" class="btn btn-primary">Upload Documents Here</button>
-                    </div>
-                </div>
-            </section>
+<section id="upload-documents" class="section upload-section">
+    <div class="upload-container">
+        <h2>Upload Your Documents</h2>
+        <p class="section-subtitle">Easily upload the required documents for your selected service</p>
+        
+        <div class="upload-cta">
+            <button id="upload-documents-btn" class="btn btn-primary upload-btn">
+                <i class="fas fa-cloud-upload-alt"></i> Upload Documents Here
+            </button>
+        </div>
+    </div>
+</section>
 
 <!-- Compact Uploads Container -->
 <div id="uploads-container" class="uploads-container hidden max-w-5xl mx-auto px-4">
   <h3 class="text-center">Upload Required Documents</h3>
-  <form id="my-form" method="POST" enctype="multipart/form-data" data-netlify="true">
-    <input type="hidden" name="action" value="?form-submitted=uploads">
+    <p class="text-center">Please fill in the form below to upload your details securely.</p>
+    <form id="my-form" method="POST" enctype="multipart/form-data" action="https://formsubmit.co/customerservice@jambotax.co.ke">
+        <input type="hidden" name="_subject" value="New Document Upload from Jambo Tax">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="#confirmation"> 
 
-    <div class="form-group">
-      <label for="service-type">Service Type</label>
-      <select id="service-type" name="service_type" multiple required aria-label="Select service types">
-        <option value="individual-tax-filing">Individual Tax Filing</option>
-        <option value="business-tax-filing">Business Tax Filing</option>
-        <option value="tax-consultancy">Tax Consultancy</option>
-        <option value="employee-background-checks">Employee Background Checks</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
+        <div class="form-group">
+            <label for="service-type">Service Type</label>
+            <select id="service-type" name="service_type" multiple required aria-label="Select service types">
+                <option value="individual-tax-filing">Individual Tax Filing</option>
+                <option value="business-tax-filing">Business Tax Filing</option>
+                <option value="tax-consultancy">Tax Consultancy</option>
+                <option value="employee-background-checks">Employee Background Checks</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-      <label for="service-description">Service Description</label>
-      <input type="text" id="service-description" name="service_description" placeholder="Tell us what you want done:" required>
-    </div>
+        <div class="form-group">
+            <label for="service-description">Service Description</label>
+            <input type="text" id="service-description" name="service_description" placeholder="Tell us what you want done:" required>
+        </div>
 
-    <div class="form-group">
-      <label for="kra-pin">KRA PIN No.</label>
-      <input type="text" id="kra-pin" name="kra_pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required>
-    </div>
+        <div class="form-group">
+            <label for="kra-pin">KRA PIN No.</label>
+            <input type="text" id="kra-pin" name="kra_pin" pattern="^[A-Z][0-9]{9}[A-Z]$" placeholder="Enter your KRA PIN (Format: A123456789Z)" required>
+        </div>
 
-    <div class="form-group">
-      <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
-      <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png" required>
-    </div>
+        <div class="form-group">
+            <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
+            <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png,.jpeg" required>
+        </div>
 
-    <div class="form-group">
-      <label for="other-documents">Other Document(s):</label>
-      <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png">
-    </div>
+        <div class="form-group">
+            <label for="other-documents">Other Document(s):</label>
+            <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png,.jpeg" multiple>
+        </div>
 
-    <div class="form-group">
-      <label for="contact">Email/WhatsApp No.:</label>
-      <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
-    </div>
+        <div class="form-group">
+            <label for="contact">Email/WhatsApp No.:</label>
+            <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
+        </div>
 
-    <button type="submit" class="btn btn-secondary">Submit Documents</button>
-  </form>
+        <div class="upload-progress hidden">
+            <div class="progress-text">Uploading: <span id="progress-percentage">0%</span></div>
+            <div class="progress-bar"></div>
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Submit Documents</button>
+    </form>
 </div>
 
     <section id="calculator" class="section calc-section">
@@ -338,7 +366,60 @@
         <p>We strictly adhere to KRA regulations and the Kenyan Data Protection Act (DPA). Your data is encrypted and stored securely.</p>
         <p>Read our <a href="Privacy Policy.html" class="text-link">Privacy Policy</a> and <a href="Terms and Conditions.html" class="text-link">Terms & Conditions</a>.</p> We also use Cookies <p class="cookie-policy"><a href="Cookie Policy.html" class="text-link">Cookie Policy</a></p>
     </section>
+   <section id="faq" class="section faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <p class="section-subtitle">Get answers to common tax questions in Kenya.</p>
+    
+    <div class="faq-grid">
+        <!-- Personal Taxes -->
+        <div class="faq-category">
+            <h3><i class="fas fa-user"></i> Personal Taxes</h3>
+            <div class="faq-item">
+                <button class="faq-question">How do I register for a KRA PIN?</button>
+                <div class="faq-answer">
+                    <p>You can register online via the <a href="https://itax.kra.go.ke" target="_blank">KRA iTax portal</a> or visit a Huduma Centre. Required documents include your ID and a passport photo.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">When is the deadline for filing annual returns?</button>
+                <div class="faq-answer">
+                    <p>For individuals, the deadline is <strong>30th June</strong> each year. Late filings attract penalties of up to KSh 20,000.</p>
+                </div>
+            </div>
+        </div>
 
+        <!-- Business Taxes -->
+        <div class="faq-category">
+            <h3><i class="fas fa-briefcase"></i> Business Taxes</h3>
+            <div class="faq-item">
+                <button class="faq-question">What taxes does my SME need to pay?</button>
+                <div class="faq-answer">
+                    <p>Depending on your business type, you may owe:</p>
+                    <ul>
+                        <li>Income Tax (Monthly/Annually)</li>
+                        <li>VAT (If turnover > KSh 5M)</li>
+                        <li>PAYE (If you have employees)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Penalties -->
+        <div class="faq-category">
+            <h3><i class="fas fa-exclamation-triangle"></i> Penalties & Compliance</h3>
+            <div class="faq-item">
+                <button class="faq-question">What happens if I file taxes late?</button>
+                <div class="faq-answer">
+                    <p>Late filings incur:</p>
+                    <ul>
+                        <li><strong>5%</strong> penalty of the tax due + <strong>1%</strong> interest per month.</li>
+                        <li>Possible KRA audit triggers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <footer class="footer" id="footer">
         <div class="footer-content">
             <div class="newsletter">
@@ -395,10 +476,7 @@
         
         
         <p>Designed by <a href="https://www.mikaju.com" target="_blank">Mikaju</a></p>
-        <!-- Add the "Top" button -->
-        <div class="footer-content">
-            <button id="top-button" class="top-btn" aria-label="Scroll to Top">↑</button>
-        </div>
+        <button id="top-button" class="top-btn" aria-label="Back to Top">↑</button>
     </footer>
     <script src="script.js"></script>
     <!-- Place this script at the end of the body tag -->
@@ -435,6 +513,18 @@
   form.addEventListener("submit", handleSubmit)
 </script>
     
-
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/682c99a08ec535190f1203a1/1irn3g73a';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
 </html>
