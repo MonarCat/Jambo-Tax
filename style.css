@@ -390,6 +390,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 600; color: var(--secon
 
 .service-card h3 {
   margin-bottom: 1rem;
+  color: var(--kra-red); /* Using the KRA red variable already defined */
 }
 
 .service-card p {
@@ -464,6 +465,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 600; color: var(--secon
   margin: 1rem 0; /* Increased margin */
   font-size: 1.2rem; /* Larger price */
   text-align: center;
+  color: var(--kra-red) !important; /* Using !important to override any existing styles */
 }
 .service-card button, .mini-card button {
   margin-top: auto; /* Push button to bottom */
