@@ -460,13 +460,47 @@ function showToast(message, type = 'info') {
     });
 }
 // Enhanced FAQ Toggle
-document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
+function initializeFAQ() {
+    document.querySelectorAll('.faq-question').forEach(button => {
+        // Ensure answers start hidden (in case CSS fails)
         const answer = button.nextElementSibling;
-        button.classList.toggle('active');
-        answer.classList.toggle('active');
+        answer.style.maxHeight = '0';
+        answer.style.padding = '0 1.25rem';
+        
+        button.addEventListener('click', () => {
+            // Toggle active class on question
+            button.classList.toggle('active');
+            
+            // Toggle answer visibility
+            if (button.classList.contains('active')) {
+                answer.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.style.padding = '1.25rem';
+            } else {
+                answer.classList.remove('active');
+                answer.style.maxHeight = '0';
+                answer.style.padding = '0 1.25rem';
+            }
+            
+            // Close other FAQs in the same category when opening one
+            if (button.classList.contains('active')) {
+                const category = button.closest('.faq-category');
+                category.querySelectorAll('.faq-question').forEach(otherButton => {
+                    if (otherButton !== button && otherButton.classList.contains('active')) {
+                        otherButton.classList.remove('active');
+                        const otherAnswer = otherButton.nextElementSibling;
+                        otherAnswer.classList.remove('active');
+                        otherAnswer.style.maxHeight = '0';
+                        otherAnswer.style.padding = '0 1.25rem';
+                    }
+                });
+            }
+        });
     });
-});
+}
+
+// Call this function when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeFAQ);
 // File compression function
 async function compressFile(file, { quality = 0.8, maxWidth = 1024, maxHeight = 1024 } = {}) {
     if (!file.type.match('image.*')) return file; // Skip non-image files

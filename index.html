@@ -296,9 +296,9 @@
 
 <!-- Compact Uploads Container -->
 <div id="uploads-container" class="uploads-container hidden max-w-5xl mx-auto px-4">
-  <h3 class="text-center">Upload Required Documents</h3>
+  <h3 class="text-center">Upload Required Details</h3>
     <p class="text-center">Please fill in the form below to upload your details securely.</p>
-    <form id="my-form" method="POST" enctype="multipart/form-data" action="https://formsubmit.co/customerservice@jambotax.co.ke">
+    <form id="my-form" method="POST" enctype="multipart/form-data" action="https://formsubmit.co/030918042fd7cfbc8986bc0391b0297c">
         <input type="hidden" name="_subject" value="New Document Upload from Jambo Tax">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -326,18 +326,23 @@
         </div>
 
         <div class="form-group">
-            <label for="id-upload">Upload Identification Document (National ID/Passport):</label>
-            <input type="file" id="id-upload" name="id_upload" accept=".pdf,.jpg,.png,.jpeg" required>
-        </div>
-
-        <div class="form-group">
-            <label for="other-documents">Other Document(s):</label>
-            <input type="file" id="other-documents" name="other_documents" accept=".pdf,.jpg,.png,.jpeg" multiple>
+            <label for="id-upload">National ID/Passport No.:</label>
+            <input type="num" id="id" name="id" accept="33716202" required>
         </div>
 
         <div class="form-group">
             <label for="contact">Email/WhatsApp No.:</label>
             <input type="text" id="contact" name="contact" placeholder="Enter your email or WhatsApp number" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="other-documents">*Send Required Uploads to;<a href="mailto:customerservice@jambotax.co.ke" class="contact-link">
+                            <i class="fas fa-envelope"></i> Email: customerservice@jambotax.co.ke
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('customerservice@jambotax.co.ke', this)" aria-label="Copy email address">
+                            <i class="fas fa-copy"></i> <span class="tooltip-text">Copy Email</span>
+                        </button></label>
+            
         </div>
 
         <div class="upload-progress hidden">
@@ -345,7 +350,7 @@
             <div class="progress-bar"></div>
         </div>
 
-        <button type="submit" class="btn btn-secondary">Submit Documents</button>
+        <button type="submit" class="btn btn-secondary">Submit Details</button>
     </form>
 </div>
 
