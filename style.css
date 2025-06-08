@@ -4,7 +4,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 /* CSS Variables for Theming */
 :root {
   --primary-color: #005a9e; /* Professional Blue */
@@ -26,7 +25,6 @@
   --header-bg-image: url('images/happy-woman-talking-phone-by-rawpixel.com.webp'); /* Example background */
   --transition-speed: 0.3s;
 }
-
 html {
   scroll-behavior: smooth; /* Enable smooth scrolling */
 }
@@ -252,6 +250,40 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 600; color: var(--secon
 
 /* Dropdown Menu */
 .dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-color);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .dropdown-content {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        background: var(--light-bg-color);
+        border-radius: 0;
+    }
+
+    .dropdown-content a {
+        padding: 0.75rem 1.5rem;
+    }
+}.dropdown {
   position: relative;
 }
 .dropdown-icon {
@@ -261,39 +293,6 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 600; color: var(--secon
 }
 .dropdown:hover .dropdown-icon {
   transform: rotate(180deg);
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: var(--bg-color);
-  min-width: 220px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  z-index: 1;
-  border-radius: 8px;
-  overflow: hidden; /* Ensure rounded corners apply */
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
-  visibility: hidden;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
-}
-.dropdown-content a {
-  color: var(--text-color);
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  font-size: 0.95rem;
-  transition: background-color var(--transition-speed), color var(--transition-speed);
-  white-space: nowrap; /* Prevent wrapping */
-}
-.dropdown-content a:hover {
-  background: var(--light-bg-color);
-  color: var(--secondary-color);
 }
 
 /* Hamburger Menu Toggle (Mobile) */
@@ -370,7 +369,7 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 600; color: var(--secon
   gap: 2rem; /* Space between cards */
   padding: 2rem 0.5rem;
   scroll-behavior: smooth;
-  overscroll-behavior: contain; /* Modern smooth scrolling behavior */
+  /* overscroll-behavior: contain; Modern smooth scrolling behavior (not supported on iOS < 16) */
 }
 
 .service-card {
@@ -681,11 +680,11 @@ select#payment-method {
   padding: 2rem 0.5rem; /* Add padding for shadow visibility */
   margin-bottom: 1rem; /* Space for buttons */
   scroll-behavior: smooth;
-  overscroll-behavior: contain; /* Modern smooth scrolling behavior */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-  -webkit-scrollbar {
-      display: none; /* Hide scrollbar for WebKit browsers */
-  }
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge, Opera) */
+.slider::-webkit-scrollbar {
+  display: none;
 }
 /* Firefox-specific (native thin scrollbar) */
 @supports (scrollbar-width: thin) {
@@ -1954,4 +1953,27 @@ figcaption {
 .form-group input[type="file"]:hover {
     border-color: var(--primary-color);
     background: rgba(0, 90, 158, 0.05);
+}
+
+/* Mobile Dropdown Fixes */
+@media (max-width: 768px) {
+  .dropdown.active .dropdown-content {
+    display: block !important;
+    position: static;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    background: var(--light-bg-color);
+    border-radius: 0;
+    max-height: 1000px;
+    padding: 0;
+  }
+  
+  .dropdown-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .dropdown.active .dropdown-icon {
+    transform: rotate(180deg);
+  }
 }

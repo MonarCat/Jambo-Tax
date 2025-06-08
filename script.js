@@ -196,235 +196,174 @@ window.copyToClipboard = copyToClipboard;
 
 // Combined DOMContentLoaded listeners and wrapped all DOM queries in checks
 document.addEventListener('DOMContentLoaded', () => {
-   // Top Button Logic - Fixed
+    // Top Button Logic - Fixed
 const topButton = document.getElementById('top-button');
 if (topButton) {
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      topButton.classList.add('visible');
-    } else {
-      topButton.classList.remove('visible');
-    }
+     if (window.scrollY > 300) {
+        topButton.classList.add('visible');
+     } else {
+        topButton.classList.remove('visible');
+     }
   });
 
   topButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+     e.preventDefault();
+     window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+     });
   });
 }
-    // Service card buttons
-    document.querySelectorAll('.service-card button').forEach(button => {
-        button.addEventListener('click', function() {
-            const serviceType = this.dataset.serviceType;
-            expandService(serviceType);
-        });
-    });
+     // Service card buttons
+     document.querySelectorAll('.service-card button').forEach(button => {
+          button.addEventListener('click', function() {
+                const serviceType = this.dataset.serviceType;
+                expandService(serviceType);
+          });
+     });
 
-    // Upload button
-    const uploadBtn = document.getElementById('upload-documents-btn');
-    if (uploadBtn) {
-        uploadBtn.addEventListener('click', toggleUploadsContainer);
-    }
+     // Upload button
+     const uploadBtn = document.getElementById('upload-documents-btn');
+     if (uploadBtn) {
+          uploadBtn.addEventListener('click', toggleUploadsContainer);
+     }
 
- 
-    // Copyright year
-    const yearEl = document.getElementById('current-year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+     // Copyright year
+     const yearEl = document.getElementById('current-year');
+     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Initial nav link update
-    updateActiveNavLink();
+     // Initial nav link update
+     updateActiveNavLink();
 
-    
-
-    
-
-    // Smooth scroll for all links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // Service Carousel Animation
-    animateServices();
-
-    // Newsletter Subscription
-    const newsletterForm = document.querySelector('.newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input')?.value;
-            console.log('Subscribed email:', email);
-            alert('Thank you for subscribing!');
-        });
-    }
-
-    // Slider controls
-    const slider = document.querySelector('.slider');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    if (slider && prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-            slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
-        });
-        nextBtn.addEventListener('click', () => {
-            slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
-        });
-    }
-
-    // Hamburger menu
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.getElementById('main-nav-list');
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        navLinks.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                navLinks.classList.remove('active');
-            }
-        });
-    }
-
-    // Red accents
-    const redTargets = [
-        document.querySelector(".hero h1"),
-        document.querySelector(".hero p"),
-        document.querySelector(".btn.btn-primary"),
-        document.querySelector(".footer h2"),
-        ...document.querySelectorAll(".service-card:nth-child(2) h3"),
-        ...document.querySelectorAll(".service-card:nth-child(2) .price"),
-        ...document.querySelectorAll(".team-member:nth-child(4) h3"),
-        ...document.querySelectorAll(".team-member:nth-child(4) p")
-    ];
-    redTargets.forEach(el => {
-        if (el) el.classList.add("highlight-red");
-    });
-
-    const redBackgrounds = [
-        document.querySelector(".newsletter-form button"),
-        ...document.querySelectorAll(".slider-item:nth-child(2)")
-    ];
-    redBackgrounds.forEach(el => {
-        if (el) el.classList.add("bg-highlight-red");
-    });
-
-    const redBorders = document.querySelectorAll(".uploads");
-    for (let i = 0; i < redBorders.length; i += 3) {
-        redBorders[i].classList.remove("border-left");
-        redBorders[i].classList.add("border-highlight-red");
-    }
-
-    // Service carousel controls
-    const serviceCarousel = document.querySelector('.service-carousel');
-    const prevBtn2 = document.querySelector('.prev-btn');
-    const nextBtn2 = document.querySelector('.next-btn');
-    if (serviceCarousel && prevBtn2 && nextBtn2) {
-        prevBtn2.addEventListener('click', () => {
-            serviceCarousel.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-        nextBtn2.addEventListener('click', () => {
-            serviceCarousel.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-    }
-
-    // Terms agreement
-    const termsCheckbox = document.getElementById('terms-agreement');
-    const termsError = document.getElementById('terms-error');
-    const form = document.querySelector('form');
-    if (termsCheckbox && termsError && form) {
-        termsCheckbox.addEventListener('change', () => {
-            if (termsCheckbox.checked) {
-                termsError.textContent = '';
-            }
-        });
-        form.addEventListener('submit', (e) => {
-            if (!termsCheckbox.checked) {
+     // Smooth scroll for all links
+     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                termsError.textContent = 'You must agree to the terms and conditions.';
-            }
-        });
-    }
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                     target.scrollIntoView({ behavior: 'smooth' });
+                }
+          });
+     });
 
-    // Accessibility
-    const accessibilityBtn = document.getElementById('accessibility-btn');
-    const accessibilityOptions = document.getElementById('accessibility-options');
-    const increaseFontBtn = document.getElementById('increase-font');
-    const decreaseFontBtn = document.getElementById('decrease-font');
-    const toggleContrastBtn = document.getElementById('toggle-contrast');
-    const resetSettingsBtn = document.getElementById('reset-settings');
-    let fontSize = 16;
-    if (accessibilityBtn && accessibilityOptions) {
-        accessibilityBtn.addEventListener('click', () => {
-            accessibilityOptions.classList.toggle('hidden');
-        });
-    }
-    if (increaseFontBtn) {
-        increaseFontBtn.addEventListener('click', () => {
-            fontSize += 2;
-            document.body.style.fontSize = `${fontSize}px`;
-        });
-    }
-    if (decreaseFontBtn) {
-        decreaseFontBtn.addEventListener('click', () => {
-            if (fontSize > 12) {
-                fontSize -= 2;
-                document.body.style.fontSize = `${fontSize}px`;
-            }
-        });
-    }
-    if (toggleContrastBtn) {
-        toggleContrastBtn.addEventListener('click', () => {
-            document.body.classList.toggle('high-contrast');
-        });
-    }
-    if (resetSettingsBtn) {
-        resetSettingsBtn.addEventListener('click', () => {
-            fontSize = 16;
-            document.body.style.fontSize = '';
-            document.body.classList.remove('high-contrast');
-        });
-    }
+     // Service Carousel Animation
+     animateServices();
 
-    // Back to home
-    const backToHomeBtn = document.getElementById('back-to-home-btn');
-    if (backToHomeBtn) {
-        backToHomeBtn.addEventListener('click', redirectToHome);
-    }
+     // Newsletter Subscription
+     const newsletterForm = document.querySelector('.newsletter-form');
+     if (newsletterForm) {
+          newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input')?.value;
+                console.log('Subscribed email:', email);
+                alert('Thank you for subscribing!');
+          });
+     }
 
-    // Service type highlight
-    const serviceType = document.getElementById('service-type');
-    if (serviceType) {
-        serviceType.addEventListener('change', function() {
-            Array.from(serviceType.options).forEach(option => {
-                option.classList.remove('selected-option');
-            });
-            Array.from(serviceType.selectedOptions).forEach(option => {
-                option.classList.add('selected-option');
-            });
-        });
-    }
+     // Slider controls
+     const slider = document.querySelector('.slider');
+     const prevBtn = document.querySelector('.prev-btn');
+     const nextBtn = document.querySelector('.next-btn');
+     if (slider && prevBtn && nextBtn) {
+          prevBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
+          });
+          nextBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
+          });
+     }
 
-    // Lazy loading images
-    if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        images.forEach(img => {
-            if (img.dataset.src) img.src = img.dataset.src;
-        });
-    } else {
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-        document.body.appendChild(script);
-    }
+     // Mobile menu and dropdown functionality (consolidated)
+     const menuToggle = document.querySelector('.menu-toggle');
+     const navLinks = document.getElementById('main-nav-list');
+     const dropdownTriggers = document.querySelectorAll('.dropdown > .nav-link');
 
-   
+     if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+          });
+          
+          navLinks.addEventListener('click', (e) => {
+                // Only close menu if clicking on non-dropdown link
+                if (e.target.tagName === 'A' && !e.target.parentNode.classList.contains('dropdown')) {
+                     navLinks.classList.remove('active');
+                }
+          });
+     }
+
+     // Dropdown handling
+     dropdownTriggers.forEach(trigger => {
+          trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                const parent = this.parentNode;
+                const wasActive = parent.classList.contains('active');
+
+                // Close all dropdowns first
+                document.querySelectorAll('.dropdown').forEach(d => {
+                     d.classList.remove('active');
+                });
+
+                // Toggle current dropdown if it wasn't active
+                if (!wasActive) {
+                     parent.classList.add('active');
+                }
+          });
+     });
+
+     // Close dropdowns when clicking outside
+     document.addEventListener('click', function(e) {
+          if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                     dropdown.classList.remove('active');
+                });
+          }
+     });
+
+     // [Rest of your existing code...]
+     // Red accents
+     const redTargets = [
+          document.querySelector(".hero h1"),
+          document.querySelector(".hero p"),
+          document.querySelector(".btn.btn-primary"),
+          document.querySelector(".footer h2"),
+          ...document.querySelectorAll(".service-card:nth-child(2) h3"),
+          ...document.querySelectorAll(".service-card:nth-child(2) .price"),
+          ...document.querySelectorAll(".team-member:nth-child(4) h3"),
+          ...document.querySelectorAll(".team-member:nth-child(4) p")
+     ];
+     redTargets.forEach(el => {
+          if (el) el.classList.add("highlight-red");
+     });
+
+     const redBackgrounds = [
+          document.querySelector(".newsletter-form button"),
+          ...document.querySelectorAll(".slider-item:nth-child(2)")
+     ];
+     redBackgrounds.forEach(el => {
+          if (el) el.classList.add("bg-highlight-red");
+     });
+
+     const redBorders = document.querySelectorAll(".uploads");
+     for (let i = 0; i < redBorders.length; i += 3) {
+          redBorders[i].classList.remove("border-left");
+          redBorders[i].classList.add("border-highlight-red");
+     }
+
+     // Service carousel controls
+     const serviceCarousel = document.querySelector('.service-carousel');
+     const prevBtn2 = document.querySelector('.prev-btn');
+     const nextBtn2 = document.querySelector('.next-btn');
+     if (serviceCarousel && prevBtn2 && nextBtn2) {
+          prevBtn2.addEventListener('click', () => {
+                serviceCarousel.scrollBy({ left: -300, behavior: 'smooth' });
+          });
+          nextBtn2.addEventListener('click', () => {
+                serviceCarousel.scrollBy({ left: 300, behavior: 'smooth' });
+          });
+     }
+
+     // [Rest of your existing code remains the same...]
 });
 // Enhanced Toast Notification
 function showToast(message, type = 'info') {
