@@ -66,6 +66,7 @@
                         <a href="#resources" class="nav-link">Resources <i class="fas fa-chevron-down dropdown-icon"></i></a>
                         <div class="dropdown-content">
                             <a href="https://itax.kra.go.ke" target="_blank" rel="noopener">KRA iTax Portal</a>
+                            <a href="https://salarycalculator.co.ke/" target="_blank" rel="noopener">Salary Calculator and Payslip Generator</a>
                             <a href="https://www.hudumakenya.go.ke/" target="_blank" rel="noopener">Huduma Kenya</a>
                             <a href="https://gok.kenya.go.ke/agencies" target="_blank" rel="noopener">Government Agencies</a>
                             <a href="https://accounts.ecitizen.go.ke/en" target="_blank" rel="noopener">Ecitizen</a>
@@ -226,9 +227,6 @@
             <select id="payment-method" onchange="showPaymentForm()">
                 <option value="">Select a payment method</option>
                 <option value="Mpesa">Mobile Money</option>
-                <option value="PayPal">PayPal - Not Available at the moment.</option>
-                <option value="Bank">Bank Transfer - Not Available at the moment.</option>
-                <option value="Card">Credit/Debit Card - Not Available at the moment.</option>
             </select>
         </div>
 
@@ -468,18 +466,27 @@
 
             <div class="social-media">
                 <h3>Follow Us</h3>
-                <a href="https://www.facebook.com/jambotax" target="_blank" rel="noopener" title="Follow us on Facebook" aria-label="Jambo Tax Facebook page"><i class="fab fa-facebook"></i></a>
-                <a href="https://x.com/EustarcMowam" target="_blank" rel="noopener" title="Follow us on X (Twitter)" aria-label="Jambo Tax X (Twitter) profile"><i class="fab fa-twitter"></i></a>
-                
-                <a href="https://www.linkedin.com/in/moses-mwombe-75010515a/" target="_blank" rel="noopener" title="Follow us on LinkedIn" aria-label="Jambo Tax LinkedIn page"><i class="fab fa-linkedin"></i></a>
-                 <a href="https://www.youtube.com/" target="_blank" rel="noopener" title="Follow us on YouTube" aria-label="Jambo Tax YouTube channel"><i class="fab fa-youtube"></i></a>
+                <a href="https://web.facebook.com/jambotaxke/" target="_blank" rel="noopener" title="Follow us on Facebook" aria-label="Jambo Tax Facebook page">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <!-- Facebook Like Button -->
+                <div class="facebook-like">
+                    <div class="fb-like" 
+                         data-href="https://web.facebook.com/jambotaxke/" 
+                         data-width="" 
+                         data-layout="standard" 
+                         data-action="like" 
+                         data-size="small" 
+                         data-share="true">
+                    </div>
+                </div>
             </div>
         </div>
         <p class="copyright">© <span id="current-year"></span> Jambo Tax. All rights reserved.</p>
         <p class="disclaimer">Disclaimer: Jambo Tax is not affiliated with the Kenya Revenue Authority (KRA). All tax filings are done in compliance with KRA regulations.</p>
         
         
-        <p>Designed by <a href="https://www.mikaju.com" target="_blank" rel="noopener noreferrer" >Mikaju</a></p>
+        <p>Managed by <a href="https://www.jambotax.co.ke" target="_blank" rel="noopener noreferrer" >Jambo Tax</a></p>
         <button id="top-button" class="top-btn" aria-label="Back to Top">↑</button>
     </footer>
     <script src="script.js"></script>
@@ -530,5 +537,9 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
+<!-- Include the Facebook SDK once, ideally right after the opening body tag -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v23.0"></script>
+
 </body>
 </html>
